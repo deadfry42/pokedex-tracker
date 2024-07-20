@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(29, 29, 29);
+    margin: 2vh;
+}
+
+p {
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+h1 {
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.center {
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+.boxrow {
+    display: flex;
+    max-width: 100wh;
+}
+
+.box {
+    background-size: contain;
+}
+
+@keyframes fadeOut {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.fadeAnim {
+    animation-name: fadeOut;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards ;
+}
