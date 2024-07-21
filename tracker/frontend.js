@@ -5,7 +5,6 @@ document.getElementById("gametitle").innerText = gametitle
 
 var data = getData("pbrs");
 var settings = getSettings(data)
-settings.sprite = 1;
 saveSettings(data, settings)
 saveData("pbrs", data)
 
@@ -19,9 +18,9 @@ function setPrimaryButtonState(e) {
 
 document.addEventListener("mousedown", setPrimaryButtonState);
 document.addEventListener("mousemove", setPrimaryButtonState);
-document.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", (e) => {
     lastAction = 0;
-    setPrimaryButtonState()
+    setPrimaryButtonState(e)
 })
 
 const createPokemonElement = (pokemonId) => {
@@ -38,15 +37,17 @@ const createPokemonElement = (pokemonId) => {
     pokemon.style.userSelect = "none"
     pokemon.ondragstart = function() { return false; };
 
-    pokemon.classList = ["pokemon-unclaimed"]
+    if (pokemonId <= maxPokemon) pokemon.classList = ["pokemon-unclaimed"]
 
     pokemon.onmousedown = (e) => {
         if (e.button != 0) return;
+        if (pokemonId > maxPokemon) return;
         if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; lastAction = 1}
         else {pokemon.classList = ["pokemon-unclaimed"]; lastAction = -1;}
     }
 
     pokemon.onmouseenter = () => {
+        if (pokemonId > maxPokemon) return;
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
@@ -131,7 +132,7 @@ const createBox = (name, id, pokemon) => {
 
 const createSettingElement = (name, settingInfo = null) => {
     // name - the name placed next to the setting element
-    // settingInfo - 
+    // settingInfo - (example below)
     // {
     //     type: "dropdown",
     //     settingName: "sprite"
@@ -154,20 +155,30 @@ const createSettingElement = (name, settingInfo = null) => {
             newSettingElement.style.display = "inline"
             newSettingElement.style.marginBottom = "3px"
 
-            dropdownElement = document.createElement("select")
+            var dropdownElement = document.createElement("select")
             dropdownElement.name = name
 
-            label = document.createElement("label")
+            var label = document.createElement("label")
             label.for = name
             label.innerText = `${name} -> `
             label.style.marginRight = "10px"
 
             settingInfo.options.forEach(element => {
+                console.log(element)
                 var Option = document.createElement("option")
                 Option.value = element.val
                 Option.innerText = element.label
                 dropdownElement.append(Option)
             });
+
+            dropdownElement.value = settings[settingInfo.settingName]
+
+            dropdownElement.onchange = () => {
+                settingsWarning.style.display = "block"
+                settings[settingInfo.settingName] = dropdownElement.value
+                saveSettings(data, settings)
+                saveData("pbrs", data)
+            }
 
             newSettingElement.append(label)
             newSettingElement.append(dropdownElement)
@@ -187,6 +198,7 @@ helpPage.style.display = "none"
 
 const createTabs = () => {
     var tabsContainer = document.createElement("p")
+    tabsContainer.style.userSelect = "none"
 
     var trackerTab = document.createElement("a")
     var settingsTab = document.createElement("a")
@@ -252,7 +264,12 @@ for (i = 0; i < boxData.length; i++) {
 
 var settingsTitle = document.createElement("h1")
 settingsTitle.innerText = "settings"
+var settingsWarning = document.createElement("p")
+settingsWarning.innerHTML = `you have made a change, you must <a href="${window.location.href}" style="color: white;">refresh</a> see them.`
+settingsWarning.style.display = "none"
+
 settingsPage.append(settingsTitle)
+settingsPage.append(settingsWarning)
 
 settingsPage.append(createSettingElement(
     "Sprite", {
@@ -271,7 +288,7 @@ settingsPage.append(createSettingElement(
 settingsPage.append(createSettingElement(
     "Box titles", {
         type: "dropdown",
-        settingName: "numberedheadings",
+        settingName: "numbered",
         options: [
             {val: false, label: "Default box number"},
             {val: true, label: "Pokemon id range"},
