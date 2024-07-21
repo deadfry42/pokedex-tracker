@@ -3,10 +3,10 @@
 
 document.getElementById("gametitle").innerText = gametitle
 
-var data = getData("pbrs");
+var data = getData(gamedatastore);
 var settings = getSettings(data)
 saveSettings(data, settings)
-saveData("pbrs", data)
+saveData(gamedatastore, data)
 
 var primaryMouseButtonDown = false;
 var lastAction = 0;
@@ -21,12 +21,12 @@ document.addEventListener("mousemove", setPrimaryButtonState);
 document.addEventListener("mouseup", (e) => {
     lastAction = 0;
     setPrimaryButtonState(e)
-    saveData("pbrs", data)
+    saveData(gamedatastore, data)
 })
 
 const createPokemonElement = (pokemonId) => {
     var pokemon = document.createElement("img")
-    pokemon.src = getPokemonImageURL(pokemonId, settings.sprite)
+    pokemon.src = getPokemonImageURL(pokemonId, settings.sprite, settings.shiny)
 
     pokemon.style.width = "48px"
     pokemon.style.height = "48px"
@@ -50,12 +50,12 @@ const createPokemonElement = (pokemonId) => {
             pokemon.classList = ["pokemon-claimed"];
             lastAction = 1;
             setPokemonStatus(data, pokemonId, 1)
-            saveData("pbrs", data)
+            saveData(gamedatastore, data)
         } else {
             pokemon.classList = ["pokemon-unclaimed"];
             lastAction = -1;
             setPokemonStatus(data, pokemonId, 0)
-            saveData("pbrs", data)
+            saveData(gamedatastore, data)
         }
     }
 
@@ -189,12 +189,44 @@ const createSettingElement = (name, settingInfo = null) => {
                 settingsWarning.style.display = "block"
                 settings[settingInfo.settingName] = dropdownElement.value
                 saveSettings(data, settings)
-                saveData("pbrs", data)
+                saveData(gamedatastore, data)
             }
 
             newSettingElement.append(label)
             newSettingElement.append(dropdownElement)
             newSettingElement.append(document.createElement("br"))
+        break;
+
+        case "checkmark":
+            newSettingElement = document.createElement("div")
+            newSettingElement.style.display = "inline"
+            newSettingElement.style.marginBottom = "3px"
+
+            var checkmarkElement = document.createElement("input")
+            checkmarkElement.name = name
+            checkmarkElement.type = "checkbox"
+
+            var label = document.createElement("label")
+            label.for = name
+            label.innerText = `${name} -> `
+            label.style.marginRight = "10px"
+
+            checkmarkElement.checked = settings[settingInfo.settingName]
+
+            checkmarkElement.onchange = () => {
+                settingsWarning.style.display = "block"
+                settings[settingInfo.settingName] = checkmarkElement.checked
+                saveSettings(data, settings)
+                saveData(gamedatastore, data)
+            }
+
+            newSettingElement.append(label)
+            newSettingElement.append(checkmarkElement)
+            newSettingElement.append(document.createElement("br"))
+        break;
+
+        default:
+            console.log(`Setting element ${name} has an invalid type!!`)
         break;
     }
 
@@ -307,6 +339,12 @@ settingsPage.append(createSettingElement(
         ]
     }
 ))
+settingsPage.append(createSettingElement(
+    "Shiny sprites", {
+        type: "checkmark",
+        settingName: "shiny",
+    }
+))
 
 var exportImportDiv = document.createElement("div")
 var eititle = document.createElement("h1")
@@ -325,7 +363,7 @@ eititle.innerText = "export/import data"
 eiexplain.innerText = `press "export" to show your pokedex's data in the textbox to save for later\npress "import" to save the data in the textbox for use.\ndo not blindly import incorrect data as it will remove your existing data!!!`
 
 exportBtn.onclick = () => {
-    eiinput.value = localStorage.getItem("pbrs")
+    eiinput.value = localStorage.getItem(gamedatastore)
     eistatus.innerText = "exported!"
 }
 
@@ -333,7 +371,7 @@ importBtn.onclick = () => {
     if (eiinput.value.length <= 1) return eistatus.innerText = "import failed: data cannot be 0!"
     try { // safeguard just in case someone inputs fake data for the lolz
         JSON.parse(eiinput.value)
-        localStorage.setItem("pbrs", eiinput.value)
+        localStorage.setItem(gamedatastore, eiinput.value)
         eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
     } catch(e) {
         console.log(e)
@@ -359,7 +397,7 @@ settingsPage.append(exportImportDiv)
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"
 var helpText = document.createElement("p")
-helpText.innerText = `This pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".`
+helpText.innerText = `This pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".\n\nData is saved live, so any changes you make will retain throughout each refresh. It is recommended to often backup your data, as to not lose it. Your data is saved with localstorage, which depending on your browser (such as safari) may be cleared after one week of inactivity.`
 helpPage.append(helpTitle)
 helpPage.append(helpText)
 

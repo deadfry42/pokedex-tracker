@@ -5,6 +5,7 @@ const rowSize = 12
 const rowCount = 5
 const maxPokemon = 386
 const gametitle = "Pokemon Box: Ruby & Sapphire"
+const gamedatastore = "pbrs"
 
 const body = document.getElementById("body")
 const startFrontend = () => {
@@ -13,7 +14,7 @@ const startFrontend = () => {
     body.append(script)
 }
 
-const getPokemonImageURL = (id, version = 0) => {
+const getPokemonImageURL = (id, version = 0, shiny = false) => {
     // version:
     // 0 - pkmn ruby
     // 1 - pkmn frlg
@@ -66,6 +67,8 @@ const getPokemonImageURL = (id, version = 0) => {
                 currentUrlConstructor += "generation-iii/ruby-sapphire/"
             break;
         }
+
+        if (shiny == true) currentUrlConstructor += "shiny/"
     
         currentUrlConstructor += `${id}.png`
         lastUrlConstructor = currentUrlConstructor
@@ -204,6 +207,7 @@ const getSettings = (data = null) => {
     if (data != null && data.settings != null) {
         settings.numbered = data.settings.numbered != null ? data.settings.numbered : false
         settings.sprite = parseInt(data.settings.sprite) != null ? parseInt(data.settings.sprite) : 0
+        settings.shiny = data.settings.shiny != null ? data.settings.shiny : false
     }
     return settings
 }
