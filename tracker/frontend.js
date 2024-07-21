@@ -21,6 +21,7 @@ document.addEventListener("mousemove", setPrimaryButtonState);
 document.addEventListener("mouseup", (e) => {
     lastAction = 0;
     setPrimaryButtonState(e)
+    saveData("pbrs", data)
 })
 
 const createPokemonElement = (pokemonId) => {
@@ -37,13 +38,25 @@ const createPokemonElement = (pokemonId) => {
     pokemon.style.userSelect = "none"
     pokemon.ondragstart = function() { return false; };
 
-    if (pokemonId <= maxPokemon) pokemon.classList = ["pokemon-unclaimed"]
+    if (pokemonId <= maxPokemon) {
+        if (getPokemonStatus(data, pokemonId) == 1) pokemon.classList = ["pokemon-claimed"]
+        else pokemon.classList = ["pokemon-unclaimed"]
+    }
 
     pokemon.onmousedown = (e) => {
         if (e.button != 0) return;
         if (pokemonId > maxPokemon) return;
-        if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; lastAction = 1}
-        else {pokemon.classList = ["pokemon-unclaimed"]; lastAction = -1;}
+        if (pokemon.classList.contains("pokemon-unclaimed")) {
+            pokemon.classList = ["pokemon-claimed"];
+            lastAction = 1;
+            setPokemonStatus(data, pokemonId, 1)
+            saveData("pbrs", data)
+        } else {
+            pokemon.classList = ["pokemon-unclaimed"];
+            lastAction = -1;
+            setPokemonStatus(data, pokemonId, 0)
+            saveData("pbrs", data)
+        }
     }
 
     pokemon.onmouseenter = () => {
@@ -51,16 +64,16 @@ const createPokemonElement = (pokemonId) => {
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]}
-                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, 1)}
+                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, 0)}
                 break;
 
                 case 1:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) pokemon.classList = ["pokemon-claimed"]
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, 1)}
                 break;
 
                 case -1:
-                    if (pokemon.classList.contains("pokemon-claimed")) pokemon.classList = ["pokemon-unclaimed"]
+                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, 0)}
                 break;
             }
         }
@@ -164,7 +177,6 @@ const createSettingElement = (name, settingInfo = null) => {
             label.style.marginRight = "10px"
 
             settingInfo.options.forEach(element => {
-                console.log(element)
                 var Option = document.createElement("option")
                 Option.value = element.val
                 Option.innerText = element.label
@@ -295,6 +307,54 @@ settingsPage.append(createSettingElement(
         ]
     }
 ))
+
+var exportImportDiv = document.createElement("div")
+var eititle = document.createElement("h1")
+var exportBtn = document.createElement("button")
+var eiinput = document.createElement("input")
+var importBtn = document.createElement("button")
+var eiexplain = document.createElement("p")
+var eistatus = document.createElement("p")
+var randombr = document.createElement("br")
+
+exportImportDiv.style.marginTop = "50px"
+
+exportBtn.innerText = "export data"
+importBtn.innerText = "import data"
+eititle.innerText = "export/import data"
+eiexplain.innerText = `press "export" to show your pokedex's data in the textbox to save for later\npress "import" to save the data in the textbox for use.\ndo not blindly import incorrect data as it will remove your existing data!!!`
+
+exportBtn.onclick = () => {
+    eiinput.value = localStorage.getItem("pbrs")
+    eistatus.innerText = "exported!"
+}
+
+importBtn.onclick = () => {
+    if (eiinput.value.length <= 1) return eistatus.innerText = "import failed: data cannot be 0!"
+    try { // safeguard just in case someone inputs fake data for the lolz
+        JSON.parse(eiinput.value)
+        localStorage.setItem("pbrs", eiinput.value)
+        eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
+    } catch(e) {
+        console.log(e)
+        eistatus.innerText = "import failed: data is not JSON!"
+    }
+}
+
+eiinput.onfocus = () => {
+    eiinput.selectionStart = 0
+    eiinput.selectionEnd = eiinput.value.length
+}
+
+exportImportDiv.append(eititle)
+exportImportDiv.append(eiinput)
+exportImportDiv.append(randombr)
+exportImportDiv.append(exportBtn)
+exportImportDiv.append(importBtn)
+exportImportDiv.append(eistatus)
+exportImportDiv.append(eiexplain)
+
+settingsPage.append(exportImportDiv)
 
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"

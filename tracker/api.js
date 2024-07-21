@@ -176,13 +176,25 @@ const createBoxData = (includeUnownBox = false) => {
 }
 
 const getData = (type) => {
-    return JSON.parse(localStorage.getItem(type))
+    var returnVal = null;
+    try {
+        returnVal = JSON.parse(localStorage.getItem(type))
+    } catch(e) {
+        console.log("ERROR PARSING DATA!!!!")
+        console.log(e)
+    }
+    return returnVal
     // {
     //     pbrs: { // (pbrs is a type)
     //         settings: {}
-    //         pokemon : [
-    //             0, 0, 0, 1, 0...
-    //         ]
+    //         pokemon : {
+    //             1: 1,
+    //             24: 0,
+    //             55: 1,
+    //             254: 0,
+    //             386: 1,
+    //             ...
+    //         }
     //     }   
     // }
 } 
@@ -206,6 +218,20 @@ const saveData = (type, data) => {
     else {
         localStorage.setItem(type, "{}")
     }
+}
+
+const setPokemonStatus = (data = null, pkmnId = null, status = 0) => {
+    if (!pkmnId) return;
+    if (!data) data = {}
+    if (!data.pokemon) data.pokemon = {}
+    data.pokemon[pkmnId] = status
+}
+
+const getPokemonStatus = (data = null, pkmnId = null) => {
+    if (!pkmnId) return;
+    if (!data) return;
+    if (!data.pokemon) return;
+    return data.pokemon[pkmnId];
 }
 
 startFrontend()
