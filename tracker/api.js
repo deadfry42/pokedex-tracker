@@ -224,18 +224,25 @@ const saveData = (type, data) => {
     }
 }
 
-const setPokemonStatus = (data = null, pkmnId = null, status = 0) => {
+const setPokemonStatus = (data = null, pkmnId = null, status = false) => {
     if (!pkmnId) return;
     if (!data) data = {}
-    if (!data.pokemon) data.pokemon = {}
-    data.pokemon[pkmnId] = status
+    if (!data.pokemon) data.pokemon = []
+    if (status) {
+        if (!data.pokemon.includes(pkmnId)) data.pokemon.push(pkmnId);
+    } else {
+        var index = data.pokemon.indexOf(pkmnId)
+        if (index > -1) {
+            data.pokemon.splice(index, 1);
+        }
+    }
 }
 
 const getPokemonStatus = (data = null, pkmnId = null) => {
     if (!pkmnId) return;
     if (!data) return;
     if (!data.pokemon) return;
-    return data.pokemon[pkmnId];
+    return data.pokemon.includes(pkmnId);
 }
 
 startFrontend()

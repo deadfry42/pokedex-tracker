@@ -49,12 +49,12 @@ const createPokemonElement = (pokemonId) => {
         if (pokemon.classList.contains("pokemon-unclaimed")) {
             pokemon.classList = ["pokemon-claimed"];
             lastAction = 1;
-            setPokemonStatus(data, pokemonId, 1)
+            setPokemonStatus(data, pokemonId, true)
             saveData(gamedatastore, data)
         } else {
             pokemon.classList = ["pokemon-unclaimed"];
             lastAction = -1;
-            setPokemonStatus(data, pokemonId, 0)
+            setPokemonStatus(data, pokemonId, false)
             saveData(gamedatastore, data)
         }
     }
@@ -64,16 +64,16 @@ const createPokemonElement = (pokemonId) => {
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, 1)}
-                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, 0)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, true)}
+                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, false)}
                 break;
 
                 case 1:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, 1)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, true)}
                 break;
 
                 case -1:
-                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, 0)}
+                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, false)}
                 break;
             }
         }
