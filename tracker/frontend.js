@@ -1,3 +1,6 @@
+// frontend.js works with all of the things that are visible to the user
+// this includes creating the boxes, sending things to the api and displaying things from the api.
+
 document.getElementById("gametitle").innerText = gametitle
 
 var data = getData("pbrs");
@@ -82,10 +85,77 @@ const createBox = (name, id, pokemon) => {
     return boxContainer
 }
 
-const content = document.getElementById("tracker")
+const createSettingElement = (name, settingInfo = null) => {
+    // name - the name placed next to the setting element
+    // settingInfo - 
+    // {
+    //     type: "slider",
+    //     settingName: "sprite"
+    //     bounds: {
+    //         0: "Ruby/Sapphire sprites",
+    //         1: "Firered/Leafgreen sprites",
+    //         2: "Emerald sprites",
+    //         3: "Diamond/Pearl sprites",
+    //         4: "Platinum sprites",
+    //         5: "Heartgold/Soulsilver sprites",
+    //     }
+    // }
+
+    if (!settingInfo) return;
+
+    var newSettingElement;
+    switch (settingInfo.type) {
+        case "slider":
+
+        break;
+    }
+}
+
+const trackerPage = document.createElement("div")
+const settingsPage = document.createElement("div")
+
+const createTabs = () => {
+    var tabsContainer = document.createElement("p")
+    
+    var trackerTab = document.createElement("a")
+    trackerTab.innerText = "tracker"
+    trackerTab.style.textDecoration = "underline"
+    trackerTab.style.cursor = "pointer"
+    trackerTab.style.marginLeft = "10px"
+    trackerTab.style.marginRight = "10px"
+    trackerTab.onclick = () => {
+        trackerPage.style.display = "block"
+        settingsPage.style.display = "none"
+        trackerTab.style.textDecoration = "underline"
+        settingsTab.style.textDecoration = "none"
+    }
+
+    var settingsTab = document.createElement("a")
+    settingsTab.innerText = "settings"
+    settingsTab.style.textDecoration = "none"
+    settingsTab.style.cursor = "pointer"
+    settingsTab.style.marginLeft = "10px"
+    settingsTab.style.marginRight = "10px"
+    settingsTab.onclick = () => {
+        trackerPage.style.display = "none"
+        settingsPage.style.display = "block"
+        trackerTab.style.textDecoration = "none"
+        settingsTab.style.textDecoration = "underline"
+    }
+
+    tabsContainer.append(trackerTab)
+    tabsContainer.append(settingsTab)
+
+    return tabsContainer
+}
 
 const boxData = createBoxData(false)
 for (i = 0; i < boxData.length; i++) {
     var box = boxData[i]
-    content.append(createBox(`box${box.id}`, box.id, box.pokemon))
+    trackerPage.append(createBox(`box${box.id}`, box.id, box.pokemon))
 }
+
+const workspace = document.getElementById("workspace")
+workspace.append(createTabs())
+workspace.append(trackerPage)
+workspace.append(settingsPage)

@@ -1,3 +1,6 @@
+// api.js works with all of the backend, the things that are invisible to the user
+// this includes getting pokemon images, getting data, changing data and more
+
 const rowSize = 12
 const rowCount = 5
 const maxPokemon = 386
@@ -57,6 +60,10 @@ const getPokemonImageURL = (id, version = 0) => {
 
             case 5:
                 currentUrlConstructor += "generation-iv/heartgold-soulsilver/"
+            break;
+
+            default:
+                currentUrlConstructor += "generation-iii/ruby-sapphire/"
             break;
         }
     
