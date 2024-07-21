@@ -119,14 +119,7 @@ p, h1, label {
     animation-fill-mode: forwards ;
 }
 
-#tracker {
-    animation-name: fadeIn;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    animation-fill-mode: forwards ;
-}
-
-#settings {
+#tracker, #settings, #help {
     animation-name: fadeIn;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);

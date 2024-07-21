@@ -182,11 +182,16 @@ const trackerPage = document.createElement("div")
 trackerPage.style.display = "block"
 const settingsPage = document.createElement("div")
 settingsPage.style.display = "none"
+const helpPage = document.createElement("div")
+helpPage.style.display = "none"
 
 const createTabs = () => {
     var tabsContainer = document.createElement("p")
-    
+
     var trackerTab = document.createElement("a")
+    var settingsTab = document.createElement("a")
+    var helpTab = document.createElement("a")
+    
     trackerTab.innerText = "tracker"
     trackerTab.style.textDecoration = "underline"
     trackerTab.style.cursor = "pointer"
@@ -195,11 +200,13 @@ const createTabs = () => {
     trackerTab.onclick = () => {
         trackerPage.style.display = "block"
         settingsPage.style.display = "none"
+        helpPage.style.display = "none"
         trackerTab.style.textDecoration = "underline"
         settingsTab.style.textDecoration = "none"
+        helpTab.style.textDecoration = "none"
     }
 
-    var settingsTab = document.createElement("a")
+    
     settingsTab.innerText = "settings"
     settingsTab.style.textDecoration = "none"
     settingsTab.style.cursor = "pointer"
@@ -208,12 +215,29 @@ const createTabs = () => {
     settingsTab.onclick = () => {
         trackerPage.style.display = "none"
         settingsPage.style.display = "block"
+        helpPage.style.display = "none"
         trackerTab.style.textDecoration = "none"
         settingsTab.style.textDecoration = "underline"
+        helpTab.style.textDecoration = "none"
+    }
+
+    helpTab.innerText = "help"
+    helpTab.style.textDecoration = "none"
+    helpTab.style.cursor = "pointer"
+    helpTab.style.marginLeft = "10px"
+    helpTab.style.marginRight = "10px"
+    helpTab.onclick = () => {
+        trackerPage.style.display = "none"
+        settingsPage.style.display = "none"
+        helpPage.style.display = "block"
+        trackerTab.style.textDecoration = "none"
+        settingsTab.style.textDecoration = "none"
+        helpTab.style.textDecoration = "underline"
     }
 
     tabsContainer.append(trackerTab)
     tabsContainer.append(settingsTab)
+    tabsContainer.append(helpTab)
 
     return tabsContainer
 }
@@ -255,10 +279,19 @@ settingsPage.append(createSettingElement(
     }
 ))
 
+var helpTitle = document.createElement("h1")
+helpTitle.innerText = "help"
+var helpText = document.createElement("p")
+helpText.innerText = `This pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".`
+helpPage.append(helpTitle)
+helpPage.append(helpText)
+
 trackerPage.id = "tracker"
 settingsPage.id = "settings"
+helpPage.id = "help"
 
 const workspace = document.getElementById("workspace")
 workspace.append(createTabs())
 workspace.append(trackerPage)
 workspace.append(settingsPage)
+workspace.append(helpPage)
