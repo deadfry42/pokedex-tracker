@@ -3,14 +3,9 @@ body {
     margin: 2vh;
 }
 
-p {
+p, h1, label {
     color: white;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-h1 {
-    color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .center {
@@ -40,13 +35,100 @@ h1 {
     padding: 25px;
 }
 
-@keyframes fadeOut {
-    0%   {opacity: 1;}
-    100% {opacity: 0;}
+@keyframes standUp-Unclaimed { /* im the real slim shady */
+    0%   {opacity: 0.3; color: black; transform: scale(1);}
+    100% {opacity: 0.5; color: black; transform: scale(1.15);}
 }
 
-.fadeAnim {
+@keyframes sitDown-Unclaimed { /* im the real slim shady */
+    0% {opacity: 0.5; color: black; transform: scale(1.15);}
+    100%   {opacity: 0.3; color: black; transform: scale(1);}
+}
+
+.pokemon-unclaimed {
+    color: black;
+    opacity: 0.3;
+}
+
+.pokemon-unclaimed:hover {
+    animation-name: standUp-Unclaimed;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    transform: scale(1);
+    transition: all 1s;
+}
+
+.pokemon-unclaimed:not(:hover) {
+    animation-name: sitDown-Unclaimed;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    transform: scale(1);
+    transition: all 1s;
+}
+
+@keyframes standUp-Claimed{ /* im the real slim shady */
+    0%      {transform: scale(1);}
+    100%    {transform: scale(1.15);}
+}
+
+@keyframes sitDown-Claimed { /* im the real slim shady */
+    0%      {transform: scale(1.15);}
+    100%    {transform: scale(1);}
+}
+
+.pokemon-claimed {
+    color: white;
+    opacity: 1;
+}
+
+.pokemon-claimed:hover {
+    animation-name: standUp-Claimed;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    transform: scale(1);
+    transition: all 1s;
+}
+
+.pokemon-claimed:not(:hover) {
+    animation-name: sitDown-Claimed;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    transform: scale(1);
+    transition: all 1s;
+}
+
+@keyframes fadeOut {
+    0%   {opacity: 1; transform: translateY(0px);}
+    100% {opacity: 0; transform: translateY(15px);}
+}
+
+@keyframes fadeIn {
+    0%   {opacity: 0; transform: translateY(15px);}
+    100% {opacity: 1; transform: translateY(0px)}
+}
+
+
+.wompwomp {
     animation-name: fadeOut;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards ;
+}
+
+#tracker {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards ;
+}
+
+#settings {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation-fill-mode: forwards ;
 }

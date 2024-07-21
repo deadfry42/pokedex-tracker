@@ -42,7 +42,7 @@ const getPokemonImageURL = (id, version = 0) => {
             break;
 
             case 1:
-                if (id > 151) currentUrlConstructor += "generation-iii/ruby-sapphire/"
+                if (id > 151 && id != 216) currentUrlConstructor += "generation-iii/ruby-sapphire/"
                 else currentUrlConstructor += "generation-iii/firered-leafgreen/"
             break;
 

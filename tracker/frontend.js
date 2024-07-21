@@ -5,8 +5,24 @@ document.getElementById("gametitle").innerText = gametitle
 
 var data = getData("pbrs");
 var settings = getSettings(data)
+settings.sprite = 1;
 saveSettings(data, settings)
 saveData("pbrs", data)
+
+var primaryMouseButtonDown = false;
+var lastAction = 0;
+
+function setPrimaryButtonState(e) {
+    var flags = e.buttons !== undefined ? e.buttons : e.which;
+    primaryMouseButtonDown = (flags & 1) === 1;
+}
+
+document.addEventListener("mousedown", setPrimaryButtonState);
+document.addEventListener("mousemove", setPrimaryButtonState);
+document.addEventListener("mouseup", () => {
+    lastAction = 0;
+    setPrimaryButtonState()
+})
 
 const createPokemonElement = (pokemonId) => {
     var pokemon = document.createElement("img")
@@ -19,7 +35,35 @@ const createPokemonElement = (pokemonId) => {
     pokemon.style.marginRight = "0px"
     pokemon.style.marginLeft = "0px"
 
-    pokemon.classList = ["pokemon"]
+    pokemon.style.userSelect = "none"
+    pokemon.ondragstart = function() { return false; };
+
+    pokemon.classList = ["pokemon-unclaimed"]
+
+    pokemon.onmousedown = (e) => {
+        if (e.button != 0) return;
+        if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; lastAction = 1}
+        else {pokemon.classList = ["pokemon-unclaimed"]; lastAction = -1;}
+    }
+
+    pokemon.onmouseenter = () => {
+        if (primaryMouseButtonDown) {
+            switch (lastAction) {
+                case 0:
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]}
+                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]}
+                break;
+
+                case 1:
+                    if (pokemon.classList.contains("pokemon-unclaimed")) pokemon.classList = ["pokemon-claimed"]
+                break;
+
+                case -1:
+                    if (pokemon.classList.contains("pokemon-claimed")) pokemon.classList = ["pokemon-unclaimed"]
+                break;
+            }
+        }
+    }
 
     return pokemon
 }
@@ -89,15 +133,15 @@ const createSettingElement = (name, settingInfo = null) => {
     // name - the name placed next to the setting element
     // settingInfo - 
     // {
-    //     type: "slider",
+    //     type: "dropdown",
     //     settingName: "sprite"
-    //     bounds: {
-    //         0: "Ruby/Sapphire sprites",
-    //         1: "Firered/Leafgreen sprites",
-    //         2: "Emerald sprites",
-    //         3: "Diamond/Pearl sprites",
-    //         4: "Platinum sprites",
-    //         5: "Heartgold/Soulsilver sprites",
+    //     options: {
+    //          {val: 0, label: "Ruby/Sapphire sprites"},
+    //          {val: 1, label: "Firered/Leafgreen sprites"},
+    //          {val: 2, label: "Emerald sprites"},
+    //          {val: 3, label: "Diamond/Pearl sprites"},
+    //          {val: 4, label: "Platinum sprites"},
+    //          {val: 5, label: "Heartgold/Soulsilver sprites"},
     //     }
     // }
 
@@ -105,14 +149,39 @@ const createSettingElement = (name, settingInfo = null) => {
 
     var newSettingElement;
     switch (settingInfo.type) {
-        case "slider":
+        case "dropdown":
+            newSettingElement = document.createElement("div")
+            newSettingElement.style.display = "inline"
+            newSettingElement.style.marginBottom = "3px"
 
+            dropdownElement = document.createElement("select")
+            dropdownElement.name = name
+
+            label = document.createElement("label")
+            label.for = name
+            label.innerText = `${name} -> `
+            label.style.marginRight = "10px"
+
+            settingInfo.options.forEach(element => {
+                var Option = document.createElement("option")
+                Option.value = element.val
+                Option.innerText = element.label
+                dropdownElement.append(Option)
+            });
+
+            newSettingElement.append(label)
+            newSettingElement.append(dropdownElement)
+            newSettingElement.append(document.createElement("br"))
         break;
     }
+
+    return newSettingElement
 }
 
 const trackerPage = document.createElement("div")
+trackerPage.style.display = "block"
 const settingsPage = document.createElement("div")
+settingsPage.style.display = "none"
 
 const createTabs = () => {
     var tabsContainer = document.createElement("p")
@@ -149,11 +218,45 @@ const createTabs = () => {
     return tabsContainer
 }
 
+trackerPage.style.userSelect = "none"
+
 const boxData = createBoxData(false)
 for (i = 0; i < boxData.length; i++) {
     var box = boxData[i]
     trackerPage.append(createBox(`box${box.id}`, box.id, box.pokemon))
 }
+
+var settingsTitle = document.createElement("h1")
+settingsTitle.innerText = "settings"
+settingsPage.append(settingsTitle)
+
+settingsPage.append(createSettingElement(
+    "Sprite", {
+        type: "dropdown",
+        settingName: "sprite",
+        options: [
+            {val: 0, label: "Ruby/Sapphire sprites"},
+            {val: 1, label: "Firered/Leafgreen sprites"},
+            {val: 2, label: "Emerald sprites"},
+            {val: 3, label: "Diamond/Pearl sprites"},
+            {val: 4, label: "Platinum sprites"},
+            {val: 5, label: "Heartgold/Soulsilver sprites"},
+        ]
+    }
+))
+settingsPage.append(createSettingElement(
+    "Box titles", {
+        type: "dropdown",
+        settingName: "numberedheadings",
+        options: [
+            {val: false, label: "Default box number"},
+            {val: true, label: "Pokemon id range"},
+        ]
+    }
+))
+
+trackerPage.id = "tracker"
+settingsPage.id = "settings"
 
 const workspace = document.getElementById("workspace")
 workspace.append(createTabs())
