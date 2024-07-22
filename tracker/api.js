@@ -175,8 +175,10 @@ const fetchPokemonInformationURL = (id, sourceType) => {
             if (data == null) reject(null)    
             switch (sourceType) {
                 default: //bulbapedia (fallback)
-                    name = name.replace("-m", "♂")
-                    name = name.replace("-f", "♀")
+                    name = name.replace("-m", "♂") // nidoran-m fix
+                    name = name.replace("-f", "♀") // nidoran-f fix
+                    name = name.replace("-o", "-O") // ho-oh fix
+                    name = name.replace("-normal", "") //deoxys fix
                     name = name.charAt(0).toUpperCase() + name.slice(1);
                     resolve(`https://bulbapedia.bulbagarden.net/wiki/${name}_(Pokémon)`)
                 break;
