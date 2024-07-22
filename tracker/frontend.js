@@ -373,6 +373,8 @@ importBtn.onclick = () => {
         JSON.parse(eiinput.value)
         localStorage.setItem(gamedatastore, eiinput.value)
         eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
+        data = getData(gamedatastore)
+        settings = getSettings(data)
     } catch(e) {
         console.log(e)
         eistatus.innerText = "import failed: data is not JSON!"
