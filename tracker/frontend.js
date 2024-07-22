@@ -452,10 +452,15 @@ importBtn.onclick = () => {
     if (eiinput.value.length <= 1) return eistatus.innerText = "import failed: data cannot be 0!"
     try { // safeguard just in case someone inputs fake data for the lolz
         JSON.parse(eiinput.value)
-        localStorage.setItem(gamedatastore, eiinput.value)
-        eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
-        data = getData(gamedatastore) // update the data in use to ensure the imported data isn't overwritten
-        settings = getSettings(data)
+        try {
+            localStorage.setItem(gamedatastore, eiinput.value)
+            eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
+            data = getData(gamedatastore) // update the data in use to ensure the imported data isn't overwritten
+            settings = getSettings(data)
+        } catch(e) {
+            console.log(e)
+            eistatus.innerText = "import failed: check console for more information!"
+        }
     } catch(e) {
         console.log(e)
         eistatus.innerText = "import failed: data is not JSON!"
