@@ -399,7 +399,7 @@ settingsPage.append(exportImportDiv)
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"
 var helpText = document.createElement("p")
-helpText.innerText = `This pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".\n\nData is saved live, so any changes you make will retain throughout each refresh. It is recommended to often backup your data, as to not lose it. Your data is saved with localstorage, which depending on your browser (such as safari) may be cleared after one week of inactivity.`
+helpText.innerText = `Note: This pokedex tracker is designed for a mouse and keyboard. Most features will likely not be available on mobile devices.\n\nThis pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".\n\nData is saved live, so any changes you make will retain throughout each refresh. It is recommended to often backup your data, as to not lose it. Your data is saved with localstorage, which depending on your browser (such as safari) may be cleared after one week of inactivity.`
 helpPage.append(helpTitle)
 helpPage.append(helpText)
 
