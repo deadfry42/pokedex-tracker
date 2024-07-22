@@ -276,11 +276,11 @@ const createSettingElement = (name, settingInfo = null) => {
             label.innerText = `${name} -> `
             label.style.marginRight = "10px"
 
-            checkmarkElement.checked = settings[settingInfo.settingName]
+            checkmarkElement.checked = settings[settingInfo.settingName].toString().toLowerCase() === "true" ? true : false
 
             checkmarkElement.onchange = () => {
                 settingsWarning.style.display = "block"
-                settings[settingInfo.settingName] = checkmarkElement.checked
+                settings[settingInfo.settingName] = checkmarkElement.checked == true ? "true" : "false"
                 saveSettings(data, settings)
                 saveData(gamedatastore, data)
             }

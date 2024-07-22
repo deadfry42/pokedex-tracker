@@ -57,7 +57,7 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
             break;
         }
 
-        if (shiny == true) currentUrlConstructor += "shiny/"
+        if (shiny == "true") currentUrlConstructor += "shiny/"
     
         currentUrlConstructor += `${id}.png`
         lastUrlConstructor = currentUrlConstructor
