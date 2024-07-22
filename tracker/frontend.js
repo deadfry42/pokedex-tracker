@@ -465,6 +465,7 @@ appendSettingElement(createSettingElement(
             {val: 5, label: "Heartgold/Soulsilver sprites"},
             {val: 6, label: "Black/White sprites"},
             {val: 7, label: "Menu icon sprites"},
+            {val: 8, label: "Pokemon Home sprites (slow)"},
         ]
     }
 ))

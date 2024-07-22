@@ -25,49 +25,54 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
 
     if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
-    if (version > 7) version = 7
+    if (version > 8) version = 8
     if (version < 0) version = 0
-    var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/"
+    var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     var lastUrlConstructor = ""
 
     const createUrlForVersion = (version) => {
         var currentUrlConstructor = urlConstructor
+
         switch (version) {
             case 0:
-                currentUrlConstructor += "generation-iii/ruby-sapphire/"
+                currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
             break;
 
             case 1:
-                if (id > 151 && id != 216) currentUrlConstructor += "generation-iii/ruby-sapphire/"
-                else currentUrlConstructor += "generation-iii/firered-leafgreen/"
+                if (id > 151 && id != 216) currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
+                else currentUrlConstructor += "versions/generation-iii/firered-leafgreen/"
             break;
 
             case 2:
-                currentUrlConstructor += "generation-iii/emerald/"
+                currentUrlConstructor += "versions/generation-iii/emerald/"
             break;
 
             case 3:
-                currentUrlConstructor += "generation-iv/diamond-pearl/"
+                currentUrlConstructor += "versions/generation-iv/diamond-pearl/"
             break;
 
             case 4:
-                currentUrlConstructor += "generation-iv/platinum/"
+                currentUrlConstructor += "versions/generation-iv/platinum/"
             break;
 
             case 5:
-                currentUrlConstructor += "generation-iv/heartgold-soulsilver/"
+                currentUrlConstructor += "versions/generation-iv/heartgold-soulsilver/"
             break;
             
             case 6:
-                currentUrlConstructor += "generation-v/black-white/"
+                currentUrlConstructor += "versions/generation-v/black-white/"
             break;
 
             case 7:
-                currentUrlConstructor += "generation-viii/icons/"
+                currentUrlConstructor += "versions/generation-viii/icons/"
+            break;
+
+            case 8:
+                currentUrlConstructor += "other/home/"
             break;
 
             default:
-                currentUrlConstructor += "generation-iii/ruby-sapphire/"
+                currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
             break;
         }
 
