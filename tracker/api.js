@@ -97,8 +97,6 @@ const fetchPokemonBulbapediaURL = (id) => {
     })
 }
 
-fetchPokemonBulbapediaURL(169) .then((url) => console.log(url))
-
 const createBoxData = (includeUnownBox = false) => {
     var boxData = []
     var boxCount = Math.ceil(maxPokemon/(rowSize*rowCount))
