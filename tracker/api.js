@@ -69,13 +69,35 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
     return lastUrlConstructor
 }
 
-const getPokemonNameFromID = (id) => {
-    
+const fetchPokemonDataFromID = (id) => {
+    // pokeapi here
+    // https://pokeapi.co/api/v2/pokemon/${id}
+
+    return new Promise((resolve, reject) => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then((response) => {
+                if (!response.ok) reject(null)
+                return response.json();
+            }) .then((data) => {
+                resolve(data)
+            })
+    })
 }
 
-const getPokemonBulbapediaURL = (id) => {
-    // get pokemon name 
+const fetchPokemonBulbapediaURL = (id) => {
+    return new Promise((resolve, reject) => {
+        fetchPokemonDataFromID(id) .then((data) => {
+            if (data == null) reject(null)
+            var name = data.name
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+            resolve(`https://bulbapedia.bulbagarden.net/wiki/${name}_(Pokémon)`)
+        }) .catch((e) => {
+            reject(null)
+        })
+    })
 }
+
+fetchPokemonBulbapediaURL(169) .then((url) => console.log(url))
 
 const createBoxData = (includeUnownBox = false) => {
     var boxData = []
