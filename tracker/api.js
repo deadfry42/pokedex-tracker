@@ -185,6 +185,9 @@ const fetchPokemonInformationURL = (id, sourceType) => {
 
                 case 1:
                     var name = data.name
+                    name = name.replace("-m", "m") // nidoran-m fix
+                    name = name.replace("-f", "f") // nidoran-f fix
+                    name = name.replace("-normal", "") //deoxys fix
                     var pokedexType = "pokedex"
                     switch (Math.floor(generation)) {
                         default: //gen 8 (fallback)
