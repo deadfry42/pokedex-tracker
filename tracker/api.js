@@ -171,10 +171,12 @@ const fetchPokemonInformationURL = (id, sourceType) => {
             resolve(`https://www.serebii.net/${pokedexType}/${stringid}.shtml`)
         }
         fetchPokemonDataFromID(id) .then((data) => {
-            if (data == null) reject(null)            
+            var name = data.name
+            if (data == null) reject(null)    
             switch (sourceType) {
                 default: //bulbapedia (fallback)
-                    var name = data.name
+                    name = name.replace("-m", "♂")
+                    name = name.replace("-f", "♀")
                     name = name.charAt(0).toUpperCase() + name.slice(1);
                     resolve(`https://bulbapedia.bulbagarden.net/wiki/${name}_(Pokémon)`)
                 break;
