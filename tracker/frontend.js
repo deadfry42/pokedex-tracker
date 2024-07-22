@@ -14,7 +14,7 @@ var inframe = false;
 
 var iframeDiv;
 
-function setPrimaryButtonState(e) {
+const setPrimaryButtonState = (e) => {
     var flags = e.buttons !== undefined ? e.buttons : e.which;
     primaryMouseButtonDown = (flags & 1) === 1;
 }
@@ -27,15 +27,19 @@ document.addEventListener("mouseup", (e) => {
     saveData(gamedatastore, data)
 })
 
+const iescape = () => {
+    if (inframe == true) {
+        inframe = false;
+        iframeDiv.id = "noviewport"
+        setTimeout(() => {
+            iframeDiv.remove()
+        }, 1000);
+    }
+}
+
 document.addEventListener("keydown", (e) => {
     if (e.key == "Escape") {
-        if (inframe == true) {
-            inframe = false;
-            iframeDiv.id = "noviewport"
-            setTimeout(() => {
-                iframeDiv.remove()
-            }, 1000);
-        }
+        iescape()
     }
 })
 
@@ -53,35 +57,53 @@ const createPokemonElement = (pokemonId) => {
     pokemon.style.userSelect = "none"
     pokemon.ondragstart = function() { return false; };
 
-    if (pokemonId <= maxPokemon) {
+    if (pokemonId <= maxPokemon && pokemonId > 0) {
         if (getPokemonStatus(data, pokemonId) == 1) pokemon.classList = ["pokemon-claimed"]
         else pokemon.classList = ["pokemon-unclaimed"]
     }
 
     pokemon.onmousedown = (e) => {
+        if (inframe) return;
         if (e.button != 0) return;
         if (e.ctrlKey == true) {
-            return fetchPokemonBulbapediaURL(pokemonId) .then((url) => {
-                inframe = true;
-                iframeDiv = document.createElement("div")
-                iframeDiv.style.position = "fixed"
-                iframeDiv.style.width = "97.5%"
-                iframeDiv.style.height = "95%"
-                iframeDiv.style.x = "5%"
-                iframeDiv.style.y = "5%"
-                iframeDiv.style.zIndex = 9999
-                iframeDiv.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
-                iframeDiv.id = "viewport"
-                var iframe = document.createElement("iframe")
-                iframe.src = url
-                iframe.style.width = "100%"
-                iframe.style.height = "100%"
-                iframe.style.border = "none"
-                iframeDiv.append(iframe)
-                document.getElementById("yes").append(iframeDiv)
+            inframe = true;
+            return fetchPokemonInformationURL(pokemonId, settings.source) .then((url) => {
+                if (settings.iframe == "true") {
+                    iframeDiv = document.createElement("div")
+                    iframeDiv.style.position = "fixed"
+                    iframeDiv.style.width = "97.5%"
+                    iframeDiv.style.height = "95%"
+                    iframeDiv.style.x = "5%"
+                    iframeDiv.style.y = "5%"
+                    iframeDiv.style.zIndex = 9999
+                    iframeDiv.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
+                    iframeDiv.style.justifyContent = "right"
+                    iframeDiv.style.display = "flex"
+                    iframeDiv.id = "viewport"
+                    var iframeX = document.createElement("img")
+                    iframeX.src = "../assets/x.png"
+                    iframeX.style.borderRadius = "100%"
+                    iframeX.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
+                    iframeX.style.width = "15px"
+                    iframeX.style.height = "15px"
+                    iframeX.style.position = "absolute"
+                    iframeX.style.cursor = "pointer"
+                    iframeX.onclick = () => iescape()
+                    iframeDiv.append(iframeX)
+                    var iframe = document.createElement("iframe")
+                    iframe.src = url
+                    iframe.style.width = "100%"
+                    iframe.style.height = "100%"
+                    iframe.style.border = "none"
+                    iframeDiv.append(iframe)
+                    document.getElementById("yes").append(iframeDiv)
+                } else {
+                    window.open(url, url).focus();
+                    inframe = false;
+                }
             })
         }
-        if (pokemonId > maxPokemon) return;
+        if (pokemonId > maxPokemon || pokemonId < 0) return;
         if (pokemon.classList.contains("pokemon-unclaimed")) {
             pokemon.classList = ["pokemon-claimed"];
             lastAction = 1;
@@ -96,7 +118,8 @@ const createPokemonElement = (pokemonId) => {
     }
 
     pokemon.onmouseenter = () => {
-        if (pokemonId > maxPokemon) return;
+        if (inframe) return;
+        if (pokemonId > maxPokemon || pokemonId < 0) return;
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
@@ -219,10 +242,11 @@ const createSettingElement = (name, settingInfo = null) => {
                 dropdownElement.append(Option)
             });
 
-            dropdownElement.value = settings[settingInfo.settingName]
+            if (settings[settingInfo.settingName] != null) dropdownElement.value = settings[settingInfo.settingName]
 
             dropdownElement.onchange = () => {
                 settingsWarning.style.display = "block"
+                console.log(dropdownElement.value)
                 settings[settingInfo.settingName] = dropdownElement.value
                 saveSettings(data, settings)
                 saveData(gamedatastore, data)
@@ -381,6 +405,27 @@ settingsPage.append(createSettingElement(
         settingName: "shiny",
     }
 ))
+settingsPage.append(createSettingElement(
+    "Pokemon Information Source", {
+        type: "dropdown",
+        settingName: "source",
+        options: [
+            {val: 0, label: "Bulbapedia"},
+            {val: 1, label: "Serebii"},
+            // RIP PokemonDB (they can't be put into an iframe)
+        ]
+    }
+))
+settingsPage.append(createSettingElement(
+    "Information display type", {
+        type: "dropdown",
+        settingName: "iframe",
+        options: [
+            {val: false, label: "Create another tab"},
+            {val: true, label: "Inside this website"},
+        ]
+    }
+))
 
 var exportImportDiv = document.createElement("div")
 var eititle = document.createElement("h1")
@@ -435,7 +480,7 @@ settingsPage.append(exportImportDiv)
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"
 var helpText = document.createElement("p")
-helpText.innerText = `Note: This pokedex tracker is designed for a mouse and keyboard. Most features will likely not be available on mobile devices.\n\nThis pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained".\n\nData is saved live, so any changes you make will retain throughout each refresh. It is recommended to often backup your data, as to not lose it. Your data is saved with localstorage, which depending on your browser (such as safari) may be cleared after one week of inactivity.`
+helpText.innerText = `Note: This pokedex tracker is designed for a mouse and keyboard. Most features will likely not be available on mobile devices.\n\nThis pokedex tracker is quite simple. Click on a pokemon to mark it as "obtained". Click on it again to revoke its "obtained" status. Click and drag over all of the pokemon you want to mark/unmark as "obtained". To quickly see the information of a Pokemon, hold down the Control key and click on the Pokemon you want to see the information of.\n\nData is saved live, so any changes you make will retain throughout each refresh. It is recommended to often backup your data, as to not lose it. Your data is saved with localstorage, which depending on your browser (such as safari) may be cleared after one week of inactivity.`
 helpPage.append(helpTitle)
 helpPage.append(helpText)
 

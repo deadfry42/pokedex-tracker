@@ -15,7 +15,7 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
     // url example: (frlg bulbasaur)
     // https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/1.png
 
-    if (id > maxPokemon) return "../assets/blankSpace.png"
+    if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
     if (version > 5) version = 5
     if (version < 0) version = 0
@@ -133,13 +133,73 @@ const fetchPokemonDataFromID = (id) => {
     })
 }
 
-const fetchPokemonBulbapediaURL = (id) => {
+// this is quite possibly the worse function in this entire project
+// explanation: all of the sources that can be chosen have different urls to each other.
+const fetchPokemonInformationURL = (id, sourceType) => {
+    if (sourceType == null) sourceType == 0
     return new Promise((resolve, reject) => {
+        if (generation < 8 && sourceType == 1) { // skip getting data, serebii doesn't require pokemon name
+            var pokedexType = "pokedex" //fallback
+            switch (generation) {
+                case 2:
+                    pokedexType += "-gs"
+                break;
+
+                case 3:
+                    pokedexType += "-rs"
+                break;
+
+                case 4:
+                    pokedexType += "-dp"
+                break;
+
+                case 5:
+                    pokedexType += "-bw"
+                break;
+
+                case 6:
+                    pokedexType += "-xy"
+                break;
+
+                case 7:
+                    pokedexType += "-sm"
+                break;
+            }
+            var stringid = id.toString()
+            if (stringid.length == 1) stringid = "0"+stringid
+            if (stringid.length == 2) stringid = "0"+stringid
+            resolve(`https://www.serebii.net/${pokedexType}/${stringid}.shtml`)
+        }
         fetchPokemonDataFromID(id) .then((data) => {
-            if (data == null) reject(null)
-            var name = data.name
-            name = name.charAt(0).toUpperCase() + name.slice(1);
-            resolve(`https://bulbapedia.bulbagarden.net/wiki/${name}_(Pokémon)`)
+            if (data == null) reject(null)            
+            switch (sourceType) {
+                default: //bulbapedia (fallback)
+                    var name = data.name
+                    name = name.charAt(0).toUpperCase() + name.slice(1);
+                    resolve(`https://bulbapedia.bulbagarden.net/wiki/${name}_(Pokémon)`)
+                break;
+
+                case 1:
+                    var name = data.name
+                    var pokedexType = "pokedex"
+                    switch (Math.floor(generation)) {
+                        default: //gen 8 (fallback)
+                            pokedexType += "-swsh"
+                        break;
+
+                        case 9:
+                            pokedexType += "-sv"
+                        break;
+                    }
+
+                    resolve(`https://www.serebii.net/${pokedexType}/${name}`)
+                break;
+
+                case 2: //pokemondb, kept just in case some people REALLY want it
+                    var name = data.name
+                    resolve(`https://pokemondb.net/pokedex/${name}`)
+                break;
+            }
         }) .catch((e) => {
             reject(null)
         })
@@ -168,77 +228,16 @@ const createBoxData = (includeUnownBox = false) => {
         )
     }
 
-    if (includeUnownBox == true) {
-        boxData.push(
-            {
-                id: 8,
-                pokemon: [
-                    {id: 201, form: 0},
-                    {id: 201, form: 1},
-                    {id: 201, form: 2},
-                    {id: 201, form: 3},
-                    {id: 201, form: 4},
-                    {id: 201, form: 5},
-                    {id: 201, form: 6},
-                    {id: 201, form: 7},
-                    {id: 201, form: 8},
-                    {id: 201, form: 9},
-                    {id: 201, form: 10},
-                    {id: 201, form: 11},
-                    {id: 201, form: 12},
-                    {id: 201, form: 13},
-                    {id: 201, form: 14},
-                    {id: 201, form: 15},
-                    {id: 201, form: 16},
-                    {id: 201, form: 17},
-                    {id: 201, form: 18},
-                    {id: 201, form: 19},
-                    {id: 201, form: 20},
-                    {id: 201, form: 21},
-                    {id: 201, form: 22},
-                    {id: 201, form: 23},
-                    {id: 201, form: 24},
-                    {id: 201, form: 25},
-                    {id: 201, form: 26},
-                    {id: 201, form: 27},
-
-                    {id: 999, form: 0}, // blank spots
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-                    {id: 999, form: 0},
-
-                ]
-            }
-        )
+    if (includeUnownBox == true) { // automatically create the unown box
+        var unownBoxPokemon = []
+        for (i = 0; i < 60; i++) {
+            if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
+            else unownBoxPokemon.push({id: 201, form: i})
+        }
+        boxData.push({
+            id: 8,
+            pokemon: unownBoxPokemon
+        })
     }
 
     return boxData
@@ -274,6 +273,8 @@ const getSettings = (data = null) => {
         settings.numbered = data.settings.numbered != null ? data.settings.numbered : false
         settings.sprite = parseInt(data.settings.sprite) != null ? parseInt(data.settings.sprite) : 0
         settings.shiny = data.settings.shiny != null ? data.settings.shiny : false
+        settings.iframe = data.settings.iframe != null ? data.settings.iframe : true
+        settings.source = parseInt(data.settings.source) != null ? parseInt(data.settings.source) : 0
     }
     return settings
 }
