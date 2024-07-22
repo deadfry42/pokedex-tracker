@@ -84,6 +84,21 @@ const fetchPokemonDataFromID = (id) => {
     })
 }
 
+const fetchRelevantPokemonEncountersFromID = (id) => {
+    // pokeapi here
+    // https://pokeapi.co/api/v2/pokemon/${id}/encounters
+
+    return new Promise((resolve, reject) => {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}/encounters`)
+            .then((response) => {
+                if (!response.ok) reject(null)
+                return response.json();
+            }) .then((data) => {
+                resolve(data)
+            })
+    })
+}
+
 const fetchPokemonBulbapediaURL = (id) => {
     return new Promise((resolve, reject) => {
         fetchPokemonDataFromID(id) .then((data) => {
