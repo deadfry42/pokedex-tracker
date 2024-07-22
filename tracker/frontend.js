@@ -1,5 +1,12 @@
-// frontend.js works with all of the things that are visible to the user
-// this includes creating the boxes, sending things to the api and displaying things from the api.
+//  __                 _                 _    _
+// / _|_ __ ___  _ __ | |_ ___ _ __   __| |  (_)___
+// | |_| '__/ _ \| '_ \| __/ _ \ '_ \ / _` |  | / __|
+// |  _| | | (_) | | | | ||  __/ | | | (_| |_ | \__ \
+// |_| |_|  \___/|_| |_|\__\___|_| |_|\__,_(_)/ |___/
+//                                         |__/
+
+// this file works with everything visible to the user including:
+// creating the boxes, sending things to the api and displaying things from the api.
 
 document.getElementById("gametitle").innerText = gametitle
 

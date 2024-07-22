@@ -1,5 +1,12 @@
-// api.js works with all of the backend, the things that are invisible to the user
-// this includes getting pokemon images, getting data, changing data and more
+//             _    _
+//  __ _ _ __ (_)  (_)___
+// / _` | '_ \| |  | / __|
+// | (_| | |_) | |_ | \__ \
+// \__,_| .__/|_(_)/ |___/
+//     |_|      |__/
+
+// this file works with all of the backend, the things that are invisible to the user, including:
+// getting pokemon images, getting data, changing data and more
 
 const body = document.getElementById("body")
 
