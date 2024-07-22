@@ -69,27 +69,61 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
     return lastUrlConstructor
 }
 
+const getAllowedGamesFromGeneration = (gen, allowOverlap, gentype=1) => {
+    var gen1 = ["red", "blue", "yellow"]
+    var gen2 = ["gold", "silver", "crystal"]
+    var gen3 = ["ruby", "sapphire", "emerald", "firered", "leafgreen"]
+    var gen4 = ["diamond", "pearl", "platinum", "heartgold", "soulsilver"]
+    var gen5 = ["black", "white", "black2", "white2"]
+    var gen6 = ["x", "y", "omegaruby", "alphasapphire"]
+    var gen7 = ["sun", "moon", "ultrasun", "ultramoon"]
+    // everything after gen7 is considered it's own mini generation lol
+    var gen8_1 = ["sword", "shield"]
+    var gen8_2 = ["brilliantdiamond", "shiningpearl"]
+    var gen8_3 = ["legendsarceus"]
+    var gen9_1 = ["scarlet", "violet"]
+    switch (gen) {
+        case 1: 
+            return gen1
+        break;
+        case 2: 
+            if (allowOverlap) return gen2 + gen1
+            else return gen2
+        break;
+        case 3:
+            return gen3
+        break;
+        case 4:
+            if (allowOverlap) return gen4 + gen3
+            else return gen4
+        break;
+        case 5:
+            if (allowOverlap) return gen5 + gen4 + gen3
+            else return gen5
+        break;
+        case 6: // pokemon bank's closure will isolate gen6 & 7
+            return gen6
+        break;
+        case 7:
+            return gen7
+        break;
+        case 8:
+            if (gentype == 2) return gen8_2
+            else if (gentype == 3) return gen8_3
+            else return gen8_1
+        break;
+        case 9:
+            return gen9_1 // will add more for pl:za
+        break;
+    }
+}
+
 const fetchPokemonDataFromID = (id) => {
     // pokeapi here
     // https://pokeapi.co/api/v2/pokemon/${id}
 
     return new Promise((resolve, reject) => {
         fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-            .then((response) => {
-                if (!response.ok) reject(null)
-                return response.json();
-            }) .then((data) => {
-                resolve(data)
-            })
-    })
-}
-
-const fetchRelevantPokemonEncountersFromID = (id) => {
-    // pokeapi here
-    // https://pokeapi.co/api/v2/pokemon/${id}/encounters
-
-    return new Promise((resolve, reject) => {
-        fetch(`https://pokeapi.co/api/v2/pokemon/${id}/encounters`)
             .then((response) => {
                 if (!response.ok) reject(null)
                 return response.json();
