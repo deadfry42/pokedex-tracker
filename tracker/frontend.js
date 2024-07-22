@@ -33,14 +33,20 @@ const iescape = () => {
         iframeDiv.id = "noviewport"
         setTimeout(() => {
             iframeDiv.remove()
+            console.log("--- End of Iframe ---")
         }, 1000);
     }
 }
 
 document.addEventListener("keydown", (e) => {
+    if (e.key == "Control") document.body.style.cursor = "help";
     if (e.key == "Escape") {
         iescape()
     }
+})
+
+document.addEventListener("keyup", (e) => {
+    if (e.key == "Control") document.body.style.cursor = "auto";
 })
 
 const createPokemonElement = (pokemonId) => {
@@ -69,6 +75,7 @@ const createPokemonElement = (pokemonId) => {
             inframe = true;
             return fetchPokemonInformationURL(pokemonId, settings.source) .then((url) => {
                 if (settings.iframe == "true") {
+                    console.log("--- Start of Iframe ---")
                     iframeDiv = document.createElement("div")
                     iframeDiv.style.position = "fixed"
                     iframeDiv.style.width = "97.5%"
