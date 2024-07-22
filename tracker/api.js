@@ -10,7 +10,7 @@
 
 const body = document.getElementById("body")
 
-const getPokemonImageURL = (id, version = 0, shiny = false) => {
+const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
     // version:
     // 0 - pkmn ruby
     // 1 - pkmn frlg
@@ -78,7 +78,8 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
 
         if (shiny == "true") currentUrlConstructor += "shiny/"
     
-        currentUrlConstructor += `${id}.png`
+        var formtext = form ? `-${form}` : ""
+        currentUrlConstructor += `${id}${formtext}.png`
         lastUrlConstructor = currentUrlConstructor
         return currentUrlConstructor
     }
@@ -256,9 +257,10 @@ const createBoxData = (includeUnownBox = false) => {
 
     if (includeUnownBox == true) { // automatically create the unown box
         var unownBoxPokemon = []
+        var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","exclamation","question"]
         for (i = 0; i < 60; i++) {
             if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
-            else unownBoxPokemon.push({id: 201, form: i})
+            else unownBoxPokemon.push({id: 201, form: alphabet[i]})
         }
         boxData.push({
             id: 8,
@@ -299,6 +301,7 @@ const getSettings = (data = null) => {
     if (!data.settings) data.settings = {}
     settings.numbered = data.settings.numbered != null ? data.settings.numbered : "false"
     settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : 0
+    settings.unown = data.settings.unown != null ? data.settings.unown : "false"
     settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
     settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
     settings.source = data.settings.source != null ? parseInt(data.settings.source) : 0
