@@ -120,7 +120,7 @@ p, h1, label {
     animation-fill-mode: forwards ;
 }
 
-#tracker, #settings, #help, #viewport {
+#tracker, #progress, #settings, #help, #viewport {
     animation-name: fadeIn;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);

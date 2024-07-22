@@ -308,68 +308,90 @@ const createSettingElement = (name, settingInfo = null) => {
 
 const trackerPage = document.createElement("div")
 trackerPage.style.display = "block"
+const progressPage = document.createElement("div")
+progressPage.style.display = "none"
 const settingsPage = document.createElement("div")
 settingsPage.style.display = "none"
 const helpPage = document.createElement("div")
 helpPage.style.display = "none"
 
+const newTab = (name) => {
+    var newTabElement = document.createElement("a")
+    newTabElement.innerText = name
+    newTabElement.style.textDecoration = "none"
+    newTabElement.style.cursor = "pointer"
+    newTabElement.style.marginLeft = "10px"
+    newTabElement.style.marginRight = "10px"
+
+    return newTabElement
+}
+
 const createTabs = () => {
     var tabsContainer = document.createElement("p")
     tabsContainer.style.userSelect = "none"
 
-    var trackerTab = document.createElement("a")
-    var settingsTab = document.createElement("a")
-    var helpTab = document.createElement("a")
-    
-    trackerTab.innerText = "tracker"
+    var trackerTab = newTab("tracker");
+    var progressTab = newTab("progress");
+    var settingsTab = newTab("settings");
+    var helpTab = newTab("help");
+
     trackerTab.style.textDecoration = "underline"
-    trackerTab.style.cursor = "pointer"
-    trackerTab.style.marginLeft = "10px"
-    trackerTab.style.marginRight = "10px"
     trackerTab.onclick = () => {
         trackerPage.style.display = "block"
+        progressPage.style.display = "none"
         settingsPage.style.display = "none"
         helpPage.style.display = "none"
         trackerTab.style.textDecoration = "underline"
+        progressTab.style.textDecoration = "none"
         settingsTab.style.textDecoration = "none"
         helpTab.style.textDecoration = "none"
     }
 
-    
-    settingsTab.innerText = "settings"
-    settingsTab.style.textDecoration = "none"
-    settingsTab.style.cursor = "pointer"
-    settingsTab.style.marginLeft = "10px"
-    settingsTab.style.marginRight = "10px"
+    progressTab.onclick = () => {
+        progressText.innerText = "Loading..."
+        trackerPage.style.display = "none"
+        progressPage.style.display = "block"
+        settingsPage.style.display = "none"
+        helpPage.style.display = "none"
+        trackerTab.style.textDecoration = "none"
+        progressTab.style.textDecoration = "underline"
+        settingsTab.style.textDecoration = "none"
+        helpTab.style.textDecoration = "none"
+
+        updateProgress();
+    }
+
     settingsTab.onclick = () => {
         trackerPage.style.display = "none"
+        progressPage.style.display = "none"
         settingsPage.style.display = "block"
         helpPage.style.display = "none"
         trackerTab.style.textDecoration = "none"
+        progressTab.style.textDecoration = "none"
         settingsTab.style.textDecoration = "underline"
         helpTab.style.textDecoration = "none"
     }
 
-    helpTab.innerText = "help"
-    helpTab.style.textDecoration = "none"
-    helpTab.style.cursor = "pointer"
-    helpTab.style.marginLeft = "10px"
-    helpTab.style.marginRight = "10px"
     helpTab.onclick = () => {
         trackerPage.style.display = "none"
+        progressPage.style.display = "none"
         settingsPage.style.display = "none"
         helpPage.style.display = "block"
         trackerTab.style.textDecoration = "none"
+        progressTab.style.textDecoration = "none"
         settingsTab.style.textDecoration = "none"
         helpTab.style.textDecoration = "underline"
     }
 
     tabsContainer.append(trackerTab)
+    tabsContainer.append(progressTab)
     tabsContainer.append(settingsTab)
     tabsContainer.append(helpTab)
 
     return tabsContainer
 }
+
+//tracker page init
 
 trackerPage.style.userSelect = "none"
 
@@ -378,6 +400,32 @@ for (i = 0; i < boxData.length; i++) {
     var box = boxData[i]
     trackerPage.append(createBox(`box${box.id}`, box.id, box.pokemon))
 }
+
+// progress page init
+
+var progressTitle = document.createElement("h1")
+progressTitle.innerText = "pokedex progress"
+var progressText = document.createElement("p")
+progressText.innerText = "Loading..."
+
+const updateProgress = () => {
+    var pokemonObtained;
+    if (data) {
+        if (data.pokemon) {
+            pokemonObtained = data.pokemon.length
+        }
+    }
+    var percentage = Math.ceil(pokemonObtained/maxPokemon*100)
+    var completion = percentage >= 100 ? "(COMPLETED) " : ""
+    progressText.innerText = `${completion}Pokedex completion: ${pokemonObtained}/${maxPokemon} (${percentage}%)`
+}
+
+updateProgress()
+
+progressPage.append(progressTitle)
+progressPage.append(progressText)
+
+// settings page init
 
 var settingsTitle = document.createElement("h1")
 settingsTitle.innerText = "settings"
@@ -505,6 +553,8 @@ exportImportDiv.append(eiexplain)
 
 settingsPage.append(exportImportDiv)
 
+// help page init
+
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"
 var helpText = document.createElement("p")
@@ -512,12 +562,16 @@ helpText.innerText = `Note: This pokedex tracker is designed for a mouse and key
 helpPage.append(helpTitle)
 helpPage.append(helpText)
 
+// load all pages
+
 trackerPage.id = "tracker"
+progressPage.id = "progress"
 settingsPage.id = "settings"
 helpPage.id = "help"
 
 const workspace = document.getElementById("workspace")
 workspace.append(createTabs())
 workspace.append(trackerPage)
+workspace.append(progressPage)
 workspace.append(settingsPage)
 workspace.append(helpPage)
