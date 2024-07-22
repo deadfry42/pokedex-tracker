@@ -269,17 +269,18 @@ const getData = (type) => {
 
 const getSettings = (data = null) => {
     var settings = {}
-    if (data != null && data.settings != null) {
-        settings.numbered = data.settings.numbered != null ? data.settings.numbered : false
-        settings.sprite = parseInt(data.settings.sprite) != null ? parseInt(data.settings.sprite) : 0
-        settings.shiny = data.settings.shiny != null ? data.settings.shiny : false
-        settings.iframe = data.settings.iframe != null ? data.settings.iframe : true
-        settings.source = parseInt(data.settings.source) != null ? parseInt(data.settings.source) : 0
-    }
+    if (data == null) data = {settings: {}}
+    if (!data.settings) data.settings = {}
+    settings.numbered = data.settings.numbered != null ? data.settings.numbered : "false"
+    settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : 0
+    settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
+    settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
+    settings.source = data.settings.source != null ? parseInt(data.settings.source) : 0
     return settings
 }
 
 const saveSettings = (data, settings) => {
+    if (!settings) return;
     if (!data) data = {}
     data.settings = settings
 }
