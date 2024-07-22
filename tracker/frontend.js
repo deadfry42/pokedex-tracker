@@ -207,6 +207,7 @@ const createSettingElement = (name, settingInfo = null) => {
     // settingInfo - (example below)
     // {
     //     type: "dropdown",
+    //     supportedGameStores: ["*"], // is included in all versions of this tracker
     //     settingName: "sprite"
     //     options: {
     //          {val: 0, label: "Ruby/Sapphire sprites"},
@@ -219,6 +220,9 @@ const createSettingElement = (name, settingInfo = null) => {
     // }
 
     if (!settingInfo) return;
+
+    // check if setting is supported
+    if (!settingInfo.supportedGameStores.includes("*") && !settingInfo.supportedGameStores.includes(gamedatastore)) return null
 
     var newSettingElement;
     switch (settingInfo.type) {
@@ -375,9 +379,15 @@ settingsWarning.style.display = "none"
 settingsPage.append(settingsTitle)
 settingsPage.append(settingsWarning)
 
-settingsPage.append(createSettingElement(
+const appendSettingElement = (settingElement) => {
+    if (!settingElement) return;
+    settingsPage.append(settingElement)
+}
+
+appendSettingElement(createSettingElement(
     "Sprite", {
         type: "dropdown",
+        supportedGameStores: ["*"],
         settingName: "sprite",
         options: [
             {val: 0, label: "Ruby/Sapphire sprites"},
@@ -389,9 +399,10 @@ settingsPage.append(createSettingElement(
         ]
     }
 ))
-settingsPage.append(createSettingElement(
+appendSettingElement(createSettingElement(
     "Box titles", {
         type: "dropdown",
+        supportedGameStores: ["pbrs"],
         settingName: "numbered",
         options: [
             {val: false, label: "Default box number"},
@@ -399,15 +410,17 @@ settingsPage.append(createSettingElement(
         ]
     }
 ))
-settingsPage.append(createSettingElement(
+appendSettingElement(createSettingElement(
     "Shiny sprites", {
         type: "checkmark",
+        supportedGameStores: ["*"],
         settingName: "shiny",
     }
 ))
-settingsPage.append(createSettingElement(
+appendSettingElement(createSettingElement(
     "Pokemon Information Source", {
         type: "dropdown",
+        supportedGameStores: ["*"],
         settingName: "source",
         options: [
             {val: 0, label: "Bulbapedia"},
@@ -416,9 +429,10 @@ settingsPage.append(createSettingElement(
         ]
     }
 ))
-settingsPage.append(createSettingElement(
+appendSettingElement(createSettingElement(
     "Information display type", {
         type: "dropdown",
+        supportedGameStores: ["*"],
         settingName: "iframe",
         options: [
             {val: false, label: "Create another tab"},
