@@ -461,6 +461,8 @@ appendSettingElement(createSettingElement(
             {val: 3, label: "Diamond/Pearl sprites"},
             {val: 4, label: "Platinum sprites"},
             {val: 5, label: "Heartgold/Soulsilver sprites"},
+            {val: 6, label: "Black/White sprites"},
+            {val: 7, label: "Menu icon sprites"},
         ]
     }
 ))

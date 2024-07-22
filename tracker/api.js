@@ -18,18 +18,17 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
     // 3 - pkmn dp
     // 4 - pkmn pt
     // 5 - pkmn hgss
+    // 6 - pkmn bw
 
     // url example: (frlg bulbasaur)
     // https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/1.png
 
     if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
-    if (version > 5) version = 5
+    if (version > 7) version = 7
     if (version < 0) version = 0
     var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/"
     var lastUrlConstructor = ""
-
-    var good = false
 
     const createUrlForVersion = (version) => {
         var currentUrlConstructor = urlConstructor
@@ -57,6 +56,14 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
 
             case 5:
                 currentUrlConstructor += "generation-iv/heartgold-soulsilver/"
+            break;
+            
+            case 6:
+                currentUrlConstructor += "generation-v/black-white/"
+            break;
+
+            case 7:
+                currentUrlConstructor += "generation-viii/icons/"
             break;
 
             default:
