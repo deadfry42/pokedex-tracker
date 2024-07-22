@@ -14,6 +14,8 @@ var data = getData(gamedatastore);
 var settings = getSettings(data)
 saveSettings(data, settings)
 saveData(gamedatastore, data)
+data = getData(gamedatastore);
+settings = getSettings(data)
 
 var primaryMouseButtonDown = false;
 var lastAction = 0;
