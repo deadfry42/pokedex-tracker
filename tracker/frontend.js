@@ -10,6 +10,9 @@ saveData(gamedatastore, data)
 
 var primaryMouseButtonDown = false;
 var lastAction = 0;
+var inframe = false;
+
+var iframeDiv;
 
 function setPrimaryButtonState(e) {
     var flags = e.buttons !== undefined ? e.buttons : e.which;
@@ -22,6 +25,18 @@ document.addEventListener("mouseup", (e) => {
     lastAction = 0;
     setPrimaryButtonState(e)
     saveData(gamedatastore, data)
+})
+
+document.addEventListener("keydown", (e) => {
+    if (e.key == "Escape") {
+        if (inframe == true) {
+            inframe = false;
+            iframeDiv.id = "noviewport"
+            setTimeout(() => {
+                iframeDiv.remove()
+            }, 1000);
+        }
+    }
 })
 
 const createPokemonElement = (pokemonId) => {
@@ -45,6 +60,27 @@ const createPokemonElement = (pokemonId) => {
 
     pokemon.onmousedown = (e) => {
         if (e.button != 0) return;
+        if (e.ctrlKey == true) {
+            return fetchPokemonBulbapediaURL(pokemonId) .then((url) => {
+                inframe = true;
+                iframeDiv = document.createElement("div")
+                iframeDiv.style.position = "fixed"
+                iframeDiv.style.width = "97.5%"
+                iframeDiv.style.height = "95%"
+                iframeDiv.style.x = "5%"
+                iframeDiv.style.y = "5%"
+                iframeDiv.style.zIndex = 9999
+                iframeDiv.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
+                iframeDiv.id = "viewport"
+                var iframe = document.createElement("iframe")
+                iframe.src = url
+                iframe.style.width = "100%"
+                iframe.style.height = "100%"
+                iframe.style.border = "none"
+                iframeDiv.append(iframe)
+                document.getElementById("yes").append(iframeDiv)
+            })
+        }
         if (pokemonId > maxPokemon) return;
         if (pokemon.classList.contains("pokemon-unclaimed")) {
             pokemon.classList = ["pokemon-claimed"];

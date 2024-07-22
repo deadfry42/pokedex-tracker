@@ -113,7 +113,6 @@ p, h1, label {
     100% {opacity: 1; transform: translateY(0px)}
 }
 
-
 .wompwomp {
     animation-name: fadeOut;
     animation-duration: 1s;
@@ -121,8 +120,15 @@ p, h1, label {
     animation-fill-mode: forwards ;
 }
 
-#tracker, #settings, #help {
+#tracker, #settings, #help, #viewport {
     animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards ;
+}
+
+#noviewport {
+    animation-name: fadeOut;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation-fill-mode: forwards ;
