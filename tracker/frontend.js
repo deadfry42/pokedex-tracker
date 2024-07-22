@@ -417,7 +417,8 @@ const updateProgress = () => {
     }
     var percentage = Math.floor(pokemonObtained/maxPokemon*100)
     var completion = pokemonObtained >= maxPokemon ? "(COMPLETED) " : ""
-    progressText.innerText = `${completion}Pokedex completion: ${pokemonObtained}/${maxPokemon} (${percentage}%)`
+    var catchLeft = pokemonObtained >= maxPokemon ? "" : `\n${maxPokemon-pokemonObtained} left to catch!`
+    progressText.innerText = `${completion}Pokedex completion: ${pokemonObtained}/${maxPokemon} (${percentage}%)${catchLeft}`
 }
 
 updateProgress()
