@@ -421,7 +421,7 @@ const updateProgress = () => {
     var pokemonObtained;
     if (data) {
         if (data.pokemon) {
-            pokemonObtained = data.pokemon.length
+            pokemonObtained = data.pokemon.length != null ? data.pokemon.length : 0
         }
     }
     var percentage = Math.floor(pokemonObtained/maxPokemon*100)
