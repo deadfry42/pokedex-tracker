@@ -418,7 +418,7 @@ var progressText = document.createElement("p")
 progressText.innerText = "Loading..."
 
 const updateProgress = () => {
-    var pokemonObtained;
+    var pokemonObtained = 0;
     if (data) {
         if (data.pokemon) {
             pokemonObtained = data.pokemon.length != null ? data.pokemon.length : 0
