@@ -33,6 +33,7 @@ const iescape = () => {
         iframeDiv.id = "noviewport"
         setTimeout(() => {
             iframeDiv.remove()
+            primaryMouseButtonDown = false;
             console.log("--- End of Iframe ---")
         }, 1000);
     }
