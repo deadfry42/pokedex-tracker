@@ -69,6 +69,14 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
     return lastUrlConstructor
 }
 
+const getPokemonNameFromID = (id) => {
+    
+}
+
+const getPokemonBulbapediaURL = (id) => {
+    // get pokemon name 
+}
+
 const createBoxData = (includeUnownBox = false) => {
     var boxData = []
     var boxCount = Math.ceil(maxPokemon/(rowSize*rowCount))

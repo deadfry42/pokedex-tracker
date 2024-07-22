@@ -373,7 +373,7 @@ importBtn.onclick = () => {
         JSON.parse(eiinput.value)
         localStorage.setItem(gamedatastore, eiinput.value)
         eistatus.innerHTML = `imported! <a href="${window.location.href}" style="color: white;">refresh</a> to see changes!`
-        data = getData(gamedatastore)
+        data = getData(gamedatastore) // update the data in use to ensure the imported data isn't overwritten
         settings = getSettings(data)
     } catch(e) {
         console.log(e)
