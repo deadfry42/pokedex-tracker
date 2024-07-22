@@ -79,13 +79,15 @@ const createPokemonElement = (pokemonId) => {
                     iframeDiv.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
                     iframeDiv.style.justifyContent = "right"
                     iframeDiv.style.display = "flex"
+                    iframeDiv.style.borderRadius = "1vw"
                     iframeDiv.id = "viewport"
                     var iframeX = document.createElement("img")
                     iframeX.src = "../assets/x.png"
-                    iframeX.style.borderRadius = "100%"
-                    iframeX.style.backgroundColor = "rgba(0, 0, 0, 0.3)"
-                    iframeX.style.width = "15px"
-                    iframeX.style.height = "15px"
+                    iframeX.style.borderRadius = "0px 1vw 0px 50% "
+                    iframeX.style.backgroundColor = "rgba(150, 0, 0, 1)"
+                    iframeX.style.width = "0.75%"
+                    iframeX.style.padding = "0.5%"
+                    // iframeX.style.height = "1%"
                     iframeX.style.position = "absolute"
                     iframeX.style.cursor = "pointer"
                     iframeX.onclick = () => iescape()
@@ -95,6 +97,7 @@ const createPokemonElement = (pokemonId) => {
                     iframe.style.width = "100%"
                     iframe.style.height = "100%"
                     iframe.style.border = "none"
+                    iframe.style.borderRadius = "1vw"
                     iframeDiv.append(iframe)
                     document.getElementById("yes").append(iframeDiv)
                 } else {
@@ -168,8 +171,6 @@ const createBox = (name, id, pokemon) => {
         box.append(row)
     }
     box.classList = ["box", "center"]
-
-    //background-image: url('../assets/boxes/body/standard/box1.png'); background-position: center; background-repeat: no-repeat; background-size:110ch
 
     box.style.backgroundImage = `url('../assets/boxes/body/standard/${name}.png')`
     box.style.backgroundPosition = "center"
