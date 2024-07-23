@@ -269,6 +269,8 @@ const createBoxData = (includeUnownBox = false) => {
     var boxData = []
     var boxCount = Math.ceil(maxPokemon/(rowSize*rowCount))
 
+    var boxIndex = 0;
+
     for (i = 1; i <= boxCount; i++) {
         var pkmn = []
         for (pi = (i*rowSize*rowCount)-((rowSize*rowCount)-1); pi <= i*(rowSize*rowCount); pi++) {
@@ -285,6 +287,7 @@ const createBoxData = (includeUnownBox = false) => {
                 pokemon: pkmn,
             }
         )
+        boxIndex++;
     }
 
     if (includeUnownBox == true) { // automatically create the unown box
@@ -295,7 +298,7 @@ const createBoxData = (includeUnownBox = false) => {
             else unownBoxPokemon.push({id: 201, form: alphabet[i]})
         }
         boxData.push({
-            id: 8,
+            id: boxIndex+1,
             pokemon: unownBoxPokemon
         })
     }
