@@ -51,7 +51,7 @@ switch (gamedatastore){
     case "gsc": doGen2Setup(); gametitle = "Pokemon Gold/Silver/Crystal"; break; //gsc only has national dex
 
     case "rse": doGen3Setup(); gametitle = "Pokemon Ruby/Sapphire/Emerald"; break;
-    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; doFrlgBoxOverrides(); break;
+    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; doFrlgBoxOverrides(); defSprite = 1; break;
     case "gen3": doGen3Setup(); gametitle = "Pokemon Generation 3"; break;
 
     case "dppt": doGen4Setup(); gametitle = "Pokemon Diamond/Pearl/Platinum"; break;
