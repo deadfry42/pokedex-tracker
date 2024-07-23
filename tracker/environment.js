@@ -19,16 +19,17 @@ var rowCount = 5
 var maxPokemon = 386
 var defSprite = 0;
 var minSprite = 0;
+var boxBgName = "pbrs"
 
-const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; }
-const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; }
-const doGen3Setup = () => { generation = 3; rowSize = 6; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; }
-const doGen3_1Setup = () => { generation = 3; rowSize = 12; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; } //pbrs
-const doGen4Setup = () => { generation = 4; rowSize = 6; rowCount = 5; maxPokemon = 493; defSprite = 3; minSprite = 3; }
-const doGen5Setup = () => { generation = 5; rowSize = 6; rowCount = 5; maxPokemon = 649; defSprite = 6; minSprite = 6; }
-const doGen6Setup = () => { generation = 6; rowSize = 6; rowCount = 5; maxPokemon = 721; defSprite = 7; minSprite = 7; }
-const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 802; defSprite = 7; minSprite = 7;} //sm
-const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; defSprite = 7; minSprite = 7;} //usum+
+const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; boxBgName = "gen1"; }
+const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; boxBgName = "gen1"; }
+const doGen3Setup = () => { generation = 3; rowSize = 6; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; boxBgName = "rse"; }
+const doGen3_1Setup = () => { generation = 3; rowSize = 12; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; boxBgName = "pbrs"; } //pbrs
+const doGen4Setup = () => { generation = 4; rowSize = 6; rowCount = 5; maxPokemon = 493; defSprite = 3; minSprite = 3; boxBgName = "gen4"; }
+const doGen5Setup = () => { generation = 5; rowSize = 6; rowCount = 5; maxPokemon = 649; defSprite = 6; minSprite = 6; boxBgName = "gen5"; }
+const doGen6Setup = () => { generation = 6; rowSize = 6; rowCount = 5; maxPokemon = 721; defSprite = 7; minSprite = 7; boxBgName = "gen6"; }
+const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 802; defSprite = 7; minSprite = 7; boxBgName = "gen7"; } //sm
+const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; defSprite = 7; minSprite = 7; boxBgName = "gen7"; } //usum+
 
 switch (gamedatastore){
     case "rby": doGen1Setup(); gametitle = "Pokemon Red/Blue/Yellow"; break; //rby (fallback)
@@ -37,7 +38,7 @@ switch (gamedatastore){
 
     case "pbrs": doGen3_1Setup(); gametitle = "Pokemon Box: Ruby & Sapphire"; break;
     case "rse": doGen3Setup(); gametitle = "Pokemon Ruby/Sapphire/Emerald"; break;
-    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; break;
+    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; boxBgName = "frlg"; break;
     case "gen3": doGen3Setup(); gametitle = "Pokemon Generation 3"; break;
 
     case "dppt": doGen4Setup(); gametitle = "Pokemon Diamond/Pearl/Platinum"; break;
