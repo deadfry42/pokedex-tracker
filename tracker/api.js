@@ -304,7 +304,7 @@ const getSettings = (data = null) => {
     settings.unown = data.settings.unown != null ? data.settings.unown : "false"
     settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
     settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
-    settings.source = data.settings.source != null ? parseInt(data.settings.source) : 0
+    settings.source = data.settings.source != null ? parseInt(data.settings.source) : 1
     return settings
 }
 
