@@ -10,8 +10,6 @@
 
 const urlParams = new URL(window.location.href).searchParams;
 
-console.log(urlParams.get("game"))
-
 const gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbrs"
 
 var generation;
