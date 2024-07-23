@@ -353,25 +353,29 @@ const saveData = (type, data) => {
     }
 }
 
-const setPokemonStatus = (data = null, pkmnId = null, status = false) => {
+const setPokemonStatus = (data = null, pkmnId = null, form = null, status = false) => {
     if (!pkmnId) return;
     if (!data) data = {}
     if (!data.pokemon) data.pokemon = []
+    var includer = pkmnId;
+    if (form != null && form != 0) includer = includer.toString()+form.toString()
     if (status) {
-        if (!data.pokemon.includes(pkmnId)) data.pokemon.push(pkmnId);
+        if (!data.pokemon.includes(includer)) data.pokemon.push(includer);
     } else {
-        var index = data.pokemon.indexOf(pkmnId)
+        var index = data.pokemon.indexOf(includer)
         if (index > -1) {
             data.pokemon.splice(index, 1);
         }
     }
 }
 
-const getPokemonStatus = (data = null, pkmnId = null) => {
+const getPokemonStatus = (data = null, pkmnId = null, form = 0) => {
     if (!pkmnId) return;
     if (!data) return;
     if (!data.pokemon) return;
-    return data.pokemon.includes(pkmnId);
+    var includer = pkmnId;
+    if (form != null && form != 0) includer = includer.toString()+form.toString()
+    return data.pokemon.includes(includer);
 }
 
 startFrontend()

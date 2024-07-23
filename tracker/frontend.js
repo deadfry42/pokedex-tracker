@@ -74,7 +74,7 @@ const createPokemonElement = (pokemonId, form) => {
     pokemon.ondragstart = function() { return false; };
 
     if (pokemonId <= maxPokemon && pokemonId > 0) {
-        if (getPokemonStatus(data, pokemonId) == 1) pokemon.classList = ["pokemon-claimed"]
+        if (getPokemonStatus(data, pokemonId, form) == 1) pokemon.classList = ["pokemon-claimed"]
         else pokemon.classList = ["pokemon-unclaimed"]
     }
 
@@ -127,12 +127,12 @@ const createPokemonElement = (pokemonId, form) => {
         if (pokemon.classList.contains("pokemon-unclaimed")) {
             pokemon.classList = ["pokemon-claimed"];
             lastAction = 1;
-            setPokemonStatus(data, pokemonId, true)
+            setPokemonStatus(data, pokemonId, form, true)
             saveData(gamedatastore, data)
         } else {
             pokemon.classList = ["pokemon-unclaimed"];
             lastAction = -1;
-            setPokemonStatus(data, pokemonId, false)
+            setPokemonStatus(data, pokemonId, form, false)
             saveData(gamedatastore, data)
         }
     }
@@ -143,16 +143,16 @@ const createPokemonElement = (pokemonId, form) => {
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, true)}
-                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, false)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true)}
+                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false)}
                 break;
 
                 case 1:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, true)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true)}
                 break;
 
                 case -1:
-                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, false)}
+                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false)}
                 break;
             }
         }
