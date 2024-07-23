@@ -190,7 +190,7 @@ const createBox = (name, id, pokemon) => {
     }
     box.classList = ["box", "center"]
 
-    box.style.backgroundImage = `url('../assets/boxes/${gamedatastore}/body/standard/${name}.png')`
+    box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/standard/${name}.png')`
     box.style.backgroundPosition = "center"
     box.style.backgroundRepeat = "no-repeat"
     box.style.backgroundSize = "contain"
@@ -205,8 +205,8 @@ const createBox = (name, id, pokemon) => {
     box.id = name
 
     var boxHeader = document.createElement("img")
-    if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${gamedatastore}/head/numbered/${name}.png`
-    else boxHeader.src = `../assets/boxes/${gamedatastore}/head/standard/${name}.png`
+    if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${boxBgName}/head/numbered/${name}.png`
+    else boxHeader.src = `../assets/boxes/${boxBgName}/head/standard/${name}.png`
     boxHeader.style.width = "200px"
     boxHeader.style.margin = "3px"
 
