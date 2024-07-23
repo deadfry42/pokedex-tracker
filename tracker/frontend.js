@@ -59,9 +59,9 @@ document.addEventListener("keyup", (e) => {
     if (e.key == "Control") document.body.style.cursor = "auto";
 })
 
-const createPokemonElement = (pokemonId) => {
+const createPokemonElement = (pokemonId, form) => {
     var pokemon = document.createElement("img")
-    pokemon.src = getPokemonImageURL(pokemonId, settings.sprite, settings.shiny)
+    pokemon.src = getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)
 
     pokemon.style.width = "48px"
     pokemon.style.height = "48px"
@@ -182,7 +182,8 @@ const createBox = (name, id, pokemon) => {
             listIndex = (inc2)+(inc*rowSize)
             if (listIndex > pokemon.length-1) return
             row.append(createPokemonElement(
-                pokemon[listIndex].id
+                pokemon[listIndex].id,
+                pokemon[listIndex].form
             ))
         }
         box.append(row)
@@ -404,7 +405,7 @@ const createTabs = () => {
 
 trackerPage.style.userSelect = "none"
 
-const boxData = createBoxData(false)
+const boxData = createBoxData(settings.unown == "true" ? true : false)
 for (i = 0; i < boxData.length; i++) {
     var box = boxData[i]
     trackerPage.append(createBox(`box${box.id}`, box.id, box.pokemon))
@@ -465,6 +466,7 @@ appendSettingElement(createSettingElement(
             {val: 5, label: "Heartgold/Soulsilver sprites"},
             {val: 6, label: "Black/White sprites"},
             {val: 7, label: "Menu icon sprites"},
+            {val: 8, label: "Pokemon Home sprites (slow)"},
         ]
     }
 ))
@@ -477,6 +479,13 @@ appendSettingElement(createSettingElement(
             {val: false, label: "Default box number"},
             {val: true, label: "Pokemon id range"},
         ]
+    }
+))
+appendSettingElement(createSettingElement(
+    "Unown Box", {
+        type: "checkmark",
+        supportedGameStores: ["*"],
+        settingName: "unown",
     }
 ))
 appendSettingElement(createSettingElement(

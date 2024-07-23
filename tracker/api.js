@@ -10,7 +10,7 @@
 
 const body = document.getElementById("body")
 
-const getPokemonImageURL = (id, version = 0, shiny = false) => {
+const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
     // version:
     // 0 - pkmn ruby
     // 1 - pkmn frlg
@@ -25,55 +25,61 @@ const getPokemonImageURL = (id, version = 0, shiny = false) => {
 
     if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
-    if (version > 7) version = 7
+    if (version > 8) version = 8
     if (version < 0) version = 0
-    var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/"
+    var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     var lastUrlConstructor = ""
 
     const createUrlForVersion = (version) => {
         var currentUrlConstructor = urlConstructor
+
         switch (version) {
             case 0:
-                currentUrlConstructor += "generation-iii/ruby-sapphire/"
+                currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
             break;
 
             case 1:
-                if (id > 151 && id != 216) currentUrlConstructor += "generation-iii/ruby-sapphire/"
-                else currentUrlConstructor += "generation-iii/firered-leafgreen/"
+                if (id > 151 && id != 216) currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
+                else currentUrlConstructor += "versions/generation-iii/firered-leafgreen/"
             break;
 
             case 2:
-                currentUrlConstructor += "generation-iii/emerald/"
+                currentUrlConstructor += "versions/generation-iii/emerald/"
             break;
 
             case 3:
-                currentUrlConstructor += "generation-iv/diamond-pearl/"
+                currentUrlConstructor += "versions/generation-iv/diamond-pearl/"
             break;
 
             case 4:
-                currentUrlConstructor += "generation-iv/platinum/"
+                currentUrlConstructor += "versions/generation-iv/platinum/"
             break;
 
             case 5:
-                currentUrlConstructor += "generation-iv/heartgold-soulsilver/"
+                currentUrlConstructor += "versions/generation-iv/heartgold-soulsilver/"
             break;
             
             case 6:
-                currentUrlConstructor += "generation-v/black-white/"
+                currentUrlConstructor += "versions/generation-v/black-white/"
             break;
 
             case 7:
-                currentUrlConstructor += "generation-viii/icons/"
+                currentUrlConstructor += "versions/generation-viii/icons/"
+            break;
+
+            case 8:
+                currentUrlConstructor += "other/home/"
             break;
 
             default:
-                currentUrlConstructor += "generation-iii/ruby-sapphire/"
+                currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
             break;
         }
 
         if (shiny == "true") currentUrlConstructor += "shiny/"
     
-        currentUrlConstructor += `${id}.png`
+        var formtext = form ? `-${form}` : ""
+        currentUrlConstructor += `${id}${formtext}.png`
         lastUrlConstructor = currentUrlConstructor
         return currentUrlConstructor
     }
@@ -251,9 +257,10 @@ const createBoxData = (includeUnownBox = false) => {
 
     if (includeUnownBox == true) { // automatically create the unown box
         var unownBoxPokemon = []
+        var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","exclamation","question"]
         for (i = 0; i < 60; i++) {
             if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
-            else unownBoxPokemon.push({id: 201, form: i})
+            else unownBoxPokemon.push({id: 201, form: alphabet[i]})
         }
         boxData.push({
             id: 8,
@@ -294,9 +301,10 @@ const getSettings = (data = null) => {
     if (!data.settings) data.settings = {}
     settings.numbered = data.settings.numbered != null ? data.settings.numbered : "false"
     settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : 0
+    settings.unown = data.settings.unown != null ? data.settings.unown : "false"
     settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
     settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
-    settings.source = data.settings.source != null ? parseInt(data.settings.source) : 0
+    settings.source = data.settings.source != null ? parseInt(data.settings.source) : 1
     return settings
 }
 
