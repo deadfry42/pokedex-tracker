@@ -452,22 +452,38 @@ const appendSettingElement = (settingElement) => {
     settingsPage.append(settingElement)
 }
 
+var spriteOptions = [
+    {val: -5, label: "Red/Blue sprites"},
+    {val: -4, label: "Yellow sprites"},
+    {val: -3, label: "Gold sprites"},
+    {val: -2, label: "Silver sprites"},
+    {val: -1, label: "Crystal sprites"},
+    {val: 0, label: "Ruby/Sapphire sprites"},
+    {val: 1, label: "Firered/Leafgreen sprites"},
+    {val: 2, label: "Emerald sprites"},
+    {val: 3, label: "Diamond/Pearl sprites"},
+    {val: 4, label: "Platinum sprites"},
+    {val: 5, label: "Heartgold/Soulsilver sprites"},
+    {val: 6, label: "Black/White sprites"},
+    {val: 7, label: "Gen 6/7 sprites"},
+    {val: 8, label: "Gen 7 Menu icon sprites"},
+    {val: 9, label: "Gen 8 Menu icon sprites"},
+    {val: 10, label: "Pokemon Home sprites (slow)"},
+    {val: 11, label: "Official Artwork (slow)"},
+]
+
+// for (i = 0, i < spriteOptions.length; i++;) {
+//     if (spriteOptions[i].val < minSprite) spriteOptions.splice(i, 1);
+// }
+
+spriteOptions = spriteOptions.splice(minSprite+5, spriteOptions.length)
+
 appendSettingElement(createSettingElement(
     "Sprite", {
         type: "dropdown",
         supportedGameStores: ["*"],
         settingName: "sprite",
-        options: [
-            {val: 0, label: "Ruby/Sapphire sprites"},
-            {val: 1, label: "Firered/Leafgreen sprites"},
-            {val: 2, label: "Emerald sprites"},
-            {val: 3, label: "Diamond/Pearl sprites"},
-            {val: 4, label: "Platinum sprites"},
-            {val: 5, label: "Heartgold/Soulsilver sprites"},
-            {val: 6, label: "Black/White sprites"},
-            {val: 7, label: "Menu icon sprites"},
-            {val: 8, label: "Pokemon Home sprites (slow)"},
-        ]
+        options: spriteOptions
     }
 ))
 appendSettingElement(createSettingElement(

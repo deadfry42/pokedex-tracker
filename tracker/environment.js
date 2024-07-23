@@ -19,16 +19,18 @@ var gametitle;
 var rowSize = 12
 var rowCount = 5
 var maxPokemon = 386
+var defSprite = 0;
+var minSprite = 0;
 
-const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; }
-const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; }
-const doGen3Setup = () => { generation = 3; rowSize = 6; rowCount = 5; maxPokemon = 386; }
-const doGen3_1Setup = () => { generation = 3; rowSize = 12; rowCount = 5; maxPokemon = 386; } //pbrs
-const doGen4Setup = () => { generation = 4; rowSize = 6; rowCount = 5; maxPokemon = 493; }
-const doGen5Setup = () => { generation = 5; rowSize = 6; rowCount = 5; maxPokemon = 649; }
-const doGen6Setup = () => { generation = 6; rowSize = 6; rowCount = 5; maxPokemon = 721; }
-const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 802; } //sm
-const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; } //usum+
+const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; }
+const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; }
+const doGen3Setup = () => { generation = 3; rowSize = 6; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; }
+const doGen3_1Setup = () => { generation = 3; rowSize = 12; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; } //pbrs
+const doGen4Setup = () => { generation = 4; rowSize = 6; rowCount = 5; maxPokemon = 493; defSprite = 3; minSprite = 3; }
+const doGen5Setup = () => { generation = 5; rowSize = 6; rowCount = 5; maxPokemon = 649; defSprite = 6; minSprite = 6; }
+const doGen6Setup = () => { generation = 6; rowSize = 6; rowCount = 5; maxPokemon = 721; defSprite = 7; minSprite = 7; }
+const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 802; defSprite = 7; minSprite = 7;} //sm
+const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; defSprite = 7; minSprite = 7;} //usum+
 
 switch (gamedatastore){
     case "rby": doGen1Setup(); gametitle = "Pokemon Red/Blue/Yellow"; break; //rby (fallback)
@@ -41,7 +43,7 @@ switch (gamedatastore){
     case "gen3": doGen3Setup(); gametitle = "Pokemon Generation 3"; break;
 
     case "dppt": doGen4Setup(); gametitle = "Pokemon Diamond/Pearl/Platinum"; break;
-    case "hgss": doGen4Setup(); gametitle = "Pokemon HeartGold/SoulSilver"; break;
+    case "hgss": doGen4Setup(); gametitle = "Pokemon HeartGold/SoulSilver"; defSprite = 5; break;
     case "gen4": doGen4Setup(); gametitle = "Pokemon Generation 4"; break;
     
     case "bw": doGen5Setup(); gametitle = "Pokemon Black/White"; break;

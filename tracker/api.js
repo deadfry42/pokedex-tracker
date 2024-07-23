@@ -25,8 +25,8 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
 
     if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
-    if (version > 8) version = 8
-    if (version < 0) version = 0
+    if (version > 11) version = 11
+    if (version < -5) version = -5
     var urlConstructor = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     var lastUrlConstructor = ""
 
@@ -34,6 +34,26 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
         var currentUrlConstructor = urlConstructor
 
         switch (version) {
+            case -5:
+                currentUrlConstructor += "versions/generation-i/red-blue/"
+            break;
+
+            case -4:
+                currentUrlConstructor += "versions/generation-i/yellow/"
+            break;
+
+            case -3:
+                currentUrlConstructor += "versions/generation-ii/gold/"
+            break;
+
+            case -2:
+                currentUrlConstructor += "versions/generation-ii/silver/"
+            break;
+
+            case -1:
+                currentUrlConstructor += "versions/generation-ii/crystal/"
+            break;
+
             case 0:
                 currentUrlConstructor += "versions/generation-iii/ruby-sapphire/"
             break;
@@ -64,11 +84,23 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
             break;
 
             case 7:
-                currentUrlConstructor += "versions/generation-viii/icons/"
+                currentUrlConstructor += "versions/generation-vii/ultra-sun-ultra-moon/"
             break;
 
             case 8:
+                currentUrlConstructor += "versions/generation-vii/icons/"
+            break;
+
+            case 9:
+                currentUrlConstructor += "versions/generation-viii/icons/"
+            break;
+
+            case 10:
                 currentUrlConstructor += "other/home/"
+            break;
+
+            case 11:
+                currentUrlConstructor += "other/official-artwork/"
             break;
 
             default:
@@ -300,7 +332,7 @@ const getSettings = (data = null) => {
     if (data == null) data = {settings: {}}
     if (!data.settings) data.settings = {}
     settings.numbered = data.settings.numbered != null ? data.settings.numbered : "false"
-    settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : 0
+    settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : defSprite
     settings.unown = data.settings.unown != null ? data.settings.unown : "false"
     settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
     settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
