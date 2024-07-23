@@ -12,7 +12,7 @@ const urlParams = new URL(window.location.href).searchParams;
 
 console.log(urlParams.get("game"))
 
-const gamedatastore = urlParams.get("game") != null ? urlParams.get("game") : "pbrs"
+const gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbrs"
 
 var generation;
 var gametitle;
