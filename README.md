@@ -4,6 +4,7 @@ A simple and easy to use FOSS Pokedex tracker!
 > [!Note]  
 > The website is now up!  
 > You can go [here](https://pokedex-tracker.netlify.app) to try now!  
+> The website will not be constantly updated, but when a new release is made on github, it should be updated to that version.  
 
 ## What is this?
 This is a simple and easy to use Pokedex tracker for the pokemon games. Currently, only Pokemon Box: Ruby & Sapphire is supported. This will likely change, as this website is designed around being modular and easy to maintain (unlike the old one).
