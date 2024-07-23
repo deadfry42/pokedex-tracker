@@ -20,9 +20,11 @@ var maxPokemon;
 var defSprite;
 var minSprite;
 var boxBgName;
+var boxVariations = true;
+var boxHeaderOverrides = {};
 
-const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; boxBgName = "gen1"; }
-const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; boxBgName = "gen1"; }
+const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; boxBgName = "gen1"; boxVariations = false; }
+const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; boxBgName = "gen1"; boxVariations = false; boxHeaderOverrides.box8 = "box8-1" }
 const doGen3Setup = () => { generation = 3; rowSize = 6; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; boxBgName = "rse"; }
 const doGen3_1Setup = () => { generation = 3; rowSize = 12; rowCount = 5; maxPokemon = 386; defSprite = 0; minSprite = 0; boxBgName = "pbrs"; } //pbrs
 const doGen4Setup = () => { generation = 4; rowSize = 6; rowCount = 5; maxPokemon = 493; defSprite = 3; minSprite = 3; boxBgName = "gen4"; }

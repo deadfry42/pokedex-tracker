@@ -190,7 +190,8 @@ const createBox = (name, id, pokemon) => {
     }
     box.classList = ["box", "center"]
 
-    box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/standard/${name}.png')`
+    if (boxVariations == true) box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/${name}.png')`
+    else box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/box.png')`
     box.style.backgroundPosition = "center"
     box.style.backgroundRepeat = "no-repeat"
     box.style.backgroundSize = "contain"
@@ -205,8 +206,13 @@ const createBox = (name, id, pokemon) => {
     box.id = name
 
     var boxHeader = document.createElement("img")
-    if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${boxBgName}/head/numbered/${name}.png`
-    else boxHeader.src = `../assets/boxes/${boxBgName}/head/standard/${name}.png`
+    if (boxHeaderOverrides[name]) {
+        if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${boxBgName}/head/numbered/${boxHeaderOverrides[name]}.png`
+        else boxHeader.src = `../assets/boxes/${boxBgName}/head/standard/${boxHeaderOverrides[name]}.png`
+    } else {
+        if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${boxBgName}/head/numbered/${name}.png`
+        else boxHeader.src = `../assets/boxes/${boxBgName}/head/standard/${name}.png`
+    }
     boxHeader.style.width = "200px"
     boxHeader.style.margin = "3px"
 
@@ -241,7 +247,8 @@ const createSettingElement = (name, settingInfo = null) => {
     if (!settingInfo) return;
 
     // check if setting is supported
-    if (!settingInfo.supportedGameStores.includes("*") && !settingInfo.supportedGameStores.includes(gamedatastore)) return null
+    if (!settingInfo.supportedGameStores.includes("*") && !settingInfo.supportedGameStores.includes(gamedatastore)) return null;
+    if(settingInfo.supportedGameStores.find(x => x == "-"+gamedatastore)) return null;
 
     var newSettingElement;
     switch (settingInfo.type) {
@@ -485,7 +492,7 @@ appendSettingElement(createSettingElement(
 appendSettingElement(createSettingElement(
     "Box titles", {
         type: "dropdown",
-        supportedGameStores: ["pbrs"],
+        supportedGameStores: ["pbrs", "rby", "gsc"],
         settingName: "numbered",
         options: [
             {val: false, label: "Default box number"},
@@ -496,7 +503,7 @@ appendSettingElement(createSettingElement(
 appendSettingElement(createSettingElement(
     "Unown Box", {
         type: "checkmark",
-        supportedGameStores: ["*"],
+        supportedGameStores: ["*", "-rby"],
         settingName: "unown",
     }
 ))
