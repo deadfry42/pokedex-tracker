@@ -10,7 +10,7 @@
 
 const urlParams = new URL(window.location.href).searchParams;
 
-const gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbrs"
+var gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbrs"
 
 var generation;
 var gametitle;
@@ -32,11 +32,10 @@ const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemo
 const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; defSprite = 7; minSprite = 7; boxBgName = "gen7"; } //usum+
 
 switch (gamedatastore){
-    case "rby": doGen1Setup(); gametitle = "Pokemon Red/Blue/Yellow"; break; //rby (fallback)
+    case "rby": doGen1Setup(); gametitle = "Pokemon Red/Blue/Yellow"; break;
 
     case "gsc": doGen2Setup(); gametitle = "Pokemon Gold/Silver/Crystal"; break; //gsc only has national dex
 
-    case "pbrs": doGen3_1Setup(); gametitle = "Pokemon Box: Ruby & Sapphire"; break;
     case "rse": doGen3Setup(); gametitle = "Pokemon Ruby/Sapphire/Emerald"; break;
     case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; boxBgName = "frlg"; break;
     case "gen3": doGen3Setup(); gametitle = "Pokemon Generation 3"; break;
@@ -63,6 +62,12 @@ switch (gamedatastore){
     case "bdsp": generation = 8.2; break;
     case "pla": generation = 8.3; break;
     case "sv": generation = 9.1; break;
+
+    default: //pbrs: fallback option
+        gametitle = "Pokemon Box: Ruby & Sapphire";
+        gamedatastore = "pbrs"
+        doGen3_1Setup();
+    break;
 }
 
 const startAPI = () => {
