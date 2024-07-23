@@ -472,10 +472,6 @@ var spriteOptions = [
     {val: 11, label: "Official Artwork (slow)"},
 ]
 
-// for (i = 0, i < spriteOptions.length; i++;) {
-//     if (spriteOptions[i].val < minSprite) spriteOptions.splice(i, 1);
-// }
-
 spriteOptions = spriteOptions.splice(minSprite+5, spriteOptions.length)
 
 appendSettingElement(createSettingElement(
