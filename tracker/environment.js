@@ -14,12 +14,12 @@ var gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbr
 
 var generation;
 var gametitle;
-var rowSize = 12
-var rowCount = 5
-var maxPokemon = 386
-var defSprite = 0;
-var minSprite = 0;
-var boxBgName = "pbrs"
+var rowSize;
+var rowCount;
+var maxPokemon;
+var defSprite;
+var minSprite;
+var boxBgName;
 
 const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; boxBgName = "gen1"; }
 const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; boxBgName = "gen1"; }
@@ -52,10 +52,9 @@ switch (gamedatastore){
     case "oras": doGen6Setup(); gametitle = "Pokemon Omega Ruby/Alpha Sapphire"; break;
     case "gen6": doGen6Setup(); gametitle = "Pokemon Generation 6"; break;
 
-    case "pokebank"||"sm"||"usum":  break; // gen 7+ doesn't have a national dex
     case "sm": doGen7Setup(); gametitle = "Pokemon Sun/Moon"; break;
     case "usum": doGen7_1Setup(); gametitle = "Pokemon Ultra Sun/Ultra Moon"; break;
-    case "pokebank": doGen7_1Setup(); gametitle = "Pokemon Bank"; break;
+    case "pokebank": doGen7_1Setup(); gametitle = "Pokemon Bank"; defSprite = 8; break;
 
     // do post gen7 later
     case "swsh": generation = 8.1; break;
