@@ -34,13 +34,24 @@ const doGen6Setup = () => { generation = 6; rowSize = 6; rowCount = 5; maxPokemo
 const doGen7Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 802; defSprite = 7; minSprite = 7; boxBgName = "gen7"; } //sm
 const doGen7_1Setup = () => { generation = 7; rowSize = 6; rowCount = 5; maxPokemon = 807; defSprite = 7; minSprite = 7; boxBgName = "gen7"; } //usum+
 
+const doFrlgBoxOverrides = () => {
+    boxHeaderOverrides.box13 = "box13-frlg"
+    boxHeaderOverrides.box14 = "box14-frlg"
+    boxHeaderOverrides.box15 = "box15-frlg"
+    boxHeaderOverrides.box16 = "box16-frlg"
+    boxImageOverrides.box13 = "box13-frlg"
+    boxImageOverrides.box14 = "box14-frlg"
+    boxImageOverrides.box15 = "box15-frlg"
+    boxImageOverrides.box16 = "box16-frlg"
+}
+
 switch (gamedatastore){
     case "rby": doGen1Setup(); gametitle = "Pokemon Red/Blue/Yellow"; break;
 
     case "gsc": doGen2Setup(); gametitle = "Pokemon Gold/Silver/Crystal"; break; //gsc only has national dex
 
     case "rse": doGen3Setup(); gametitle = "Pokemon Ruby/Sapphire/Emerald"; break;
-    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; boxBgName = "frlg"; break;
+    case "frlg": doGen3Setup(); gametitle = "Pokemon FireRed/LeafGreen"; doFrlgBoxOverrides(); break;
     case "gen3": doGen3Setup(); gametitle = "Pokemon Generation 3"; break;
 
     case "dppt": doGen4Setup(); gametitle = "Pokemon Diamond/Pearl/Platinum"; break;
