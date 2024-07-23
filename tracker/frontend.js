@@ -190,8 +190,13 @@ const createBox = (name, id, pokemon) => {
     }
     box.classList = ["box", "center"]
 
-    if (boxVariations == true) box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/${name}.png')`
-    else box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/box.png')`
+    if (boxImageOverrides[name]) {
+        if (boxVariations == true) box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/${boxImageOverrides[name]}.png')`
+        else box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/box.png')`
+    } else {
+        if (boxVariations == true) box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/${boxImageOverrides[name]}.png')`
+        else box.style.backgroundImage = `url('../assets/boxes/${boxBgName}/body/box.png')`
+    }
     box.style.backgroundPosition = "center"
     box.style.backgroundRepeat = "no-repeat"
     box.style.backgroundSize = "contain"

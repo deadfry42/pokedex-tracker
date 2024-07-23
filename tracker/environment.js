@@ -22,6 +22,7 @@ var minSprite;
 var boxBgName;
 var boxVariations = true;
 var boxHeaderOverrides = {};
+var boxImageOverrides = {};
 
 const doGen1Setup = () => { generation = 1; rowSize = 5; rowCount = 4; maxPokemon = 151; defSprite = -5; minSprite = -5; boxBgName = "gen1"; boxVariations = false; }
 const doGen2Setup = () => { generation = 2; rowSize = 5; rowCount = 4; maxPokemon = 251; defSprite = -3; minSprite = -3; boxBgName = "gen1"; boxVariations = false; boxHeaderOverrides.box8 = "box8-1" }
