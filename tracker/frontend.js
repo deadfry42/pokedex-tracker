@@ -60,8 +60,10 @@ document.addEventListener("keyup", (e) => {
 })
 
 const createPokemonElement = (pokemonId, form) => {
-    var pokemon = document.createElement("img")
-    pokemon.src = getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)
+    var pokemon = document.createElement("div")
+    pokemon.style.backgroundImage = `url('${getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)}')`
+    pokemon.style.backgroundSize = "contain"
+    pokemon.style.display = "inline-block"
 
     pokemon.style.width = "48px"
     pokemon.style.height = "48px"
@@ -74,8 +76,21 @@ const createPokemonElement = (pokemonId, form) => {
     pokemon.ondragstart = function() { return false; };
 
     if (pokemonId <= maxPokemon && pokemonId > 0) {
-        if (getPokemonStatus(data, pokemonId, form) == 1) pokemon.classList = ["pokemon-claimed"]
+        if (getPokemonStatus(data, pokemonId, form, 0) == 1) pokemon.classList = ["pokemon-claimed"]
         else pokemon.classList = ["pokemon-unclaimed"]
+
+        var indicator = document.createElement("div")
+        indicator.style.width = "10px"
+        indicator.style.height = "10px"
+        indicator.style.borderRadius = "100%"
+        indicator.style.backgroundColor = "rgba(255, 0, 0, 1)"
+        indicator.style.classList = ["pokemon-claimed"]
+        indicator.style.display = "none"
+
+        pokemon.append(indicator)
+
+        if (getPokemonStatus(data, pokemonId, form, 1) == 1) indicator.style.display = "initial"
+        else indicator.style.display = "none"
     }
 
     pokemon.onmousedown = (e) => {
