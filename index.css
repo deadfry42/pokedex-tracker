@@ -3,7 +3,7 @@ body {
     margin: 2vh;
 }
 
-p, h1, h2, label {
+p, h1, h2, label, legend {
     color: white;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }

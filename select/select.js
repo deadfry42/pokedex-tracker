@@ -87,15 +87,22 @@ const CreatePokedexElement = (data) => {
 }
 
 const CreateGroupElement = (data) => {
-    var group = document.createElement("div")
+    var group = document.createElement("fieldset")
+    group.style.display = "inline"
+    group.style.borderRadius = "1rem"
+
+    group.style.borderBottom = "none"
+    group.style.marginBottom = "1rem"
 
     var inside = document.createElement("div")
     inside.style.display = "flex"
     inside.style.margin = "auto"
     inside.classList = ["center"]
 
-    var title = document.createElement("h1")
+    var title = document.createElement("legend")
     title.innerText = data.label;
+    title.style.fontWeight = "900";
+    title.style.fontSize = "1.5rem"
 
     group.append(title)
     group.append(inside);
