@@ -356,29 +356,32 @@ const saveData = (type, data) => {
     }
 }
 
-const setPokemonStatus = (data = null, pkmnId = null, form = null, status = false) => {
+const setPokemonStatus = (data = null, pkmnId = null, form = null, status = false, statusType = 0) => {
     if (!pkmnId) return;
     if (!data) data = {}
-    if (!data.pokemon) data.pokemon = []
+    var pullTable = statusType == 0 ? "pokemon" : "marked"
+    console.log(pullTable)
+    if (!data[pullTable]) data[pullTable] = []
     var includer = pkmnId;
     if (form != null && form != 0) includer = includer.toString()+form.toString()
     if (status) {
-        if (!data.pokemon.includes(includer)) data.pokemon.push(includer);
+        if (!data[pullTable].includes(includer)) data[pullTable].push(includer);
     } else {
-        var index = data.pokemon.indexOf(includer)
+        var index = data[pullTable].indexOf(includer)
         if (index > -1) {
-            data.pokemon.splice(index, 1);
+            data[pullTable].splice(index, 1);
         }
     }
 }
 
-const getPokemonStatus = (data = null, pkmnId = null, form = 0) => {
+const getPokemonStatus = (data = null, pkmnId = null, form = 0, statusType = 0) => {
     if (!pkmnId) return;
     if (!data) return;
-    if (!data.pokemon) return;
+    var pullTable = statusType == 0 ? "pokemon" : "marked"
+    if (!data[pullTable]) return;
     var includer = pkmnId;
     if (form != null && form != 0) includer = includer.toString()+form.toString()
-    return data.pokemon.includes(includer);
+    return data[pullTable].includes(includer);
 }
 
 startFrontend()
