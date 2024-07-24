@@ -17,8 +17,8 @@ var pokedexes = [
         label: "Generation 3",
         national: "gen3",
         types: [
-            {label: "Pokemon Ruby/Sapphire/Emerald", store: "rse"},
-            {label: "Pokemon FireRed/LeafGreen", store: "frlg"},
+            {label: "Pokemon Ruby/Sapphire/Emerald\n(Hoenn Dex)", store: "rse"},
+            {label: "Pokemon FireRed/LeafGreen\n(Kanto Dex)", store: "frlg"},
             {label: "Pokemon Box: Ruby & Sapphire", store: "pbrs"},
         ]
     },
@@ -26,32 +26,32 @@ var pokedexes = [
         label: "Generation 4",
         national: "gen4",
         types: [
-            {label: "Pokemon Diamond/Pearl/Platinum", store: "dppt"},
-            {label: "Pokemon HeartGold/SoulSilver", store: "hgss"},
+            {label: "Pokemon Diamond/Pearl/Platinum\n(Sinnoh Dex)", store: "dppt"},
+            {label: "Pokemon HeartGold/SoulSilver\n(Johto Dex)", store: "hgss"},
         ]
     },
     {
         label: "Generation 5",
         national: "gen5",
         types: [
-            {label: "Pokemon Black/White", store: "bw"},
-            {label: "Pokemon Black2/White2", store: "b2w2"},
+            {label: "Pokemon Black/White\n(Unova Dex)", store: "bw"},
+            {label: "Pokemon Black2/White2\n(Unova Dex)", store: "b2w2"},
         ]
     },
     {
         label: "Generation 6",
         national: "gen6",
         types: [
-            {label: "Pokemon X/Y", store: "xy"},
-            {label: "Pokemon Omega Ruby/Alpha Sapphire", store: "oras"},
+            {label: "Pokemon X/Y\n(Kalos Dex)", store: "xy"}, //we'll come to kalos later
+            {label: "Pokemon Omega Ruby/Alpha Sapphire\n(Hoenn Dex)", store: "oras"},
         ]
     },
     {
         label: "Generation 7",
         national: null,
         types: [
-            {label: "Pokemon Sun/Moon", store: "sm"},
-            {label: "Pokemon Ultra Sun/Ultra Moon", store: "usum"},
+            {label: "Pokemon Sun/Moon\n(Alola Dex)", store: "sm"},
+            {label: "Pokemon Ultra Sun/Ultra Moon\n(Alola Dex)", store: "usum"},
             {label: "Pokemon Bank", store: "pokebank"},
         ]
     },
