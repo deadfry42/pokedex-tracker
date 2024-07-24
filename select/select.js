@@ -76,6 +76,7 @@ const CreatePokedexElement = (data) => {
     var image = document.createElement("img")
     image.src = `../assets/boxart/${data.store}.png`
     image.style.width = "10vw"
+    image.classList = ["pokemon-claimed"]
 
     anchor.append(image)
 
