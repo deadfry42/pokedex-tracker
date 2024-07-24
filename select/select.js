@@ -114,10 +114,17 @@ const CreateGroupElement = (data) => {
     return group;
 }
 
-window.addEventListener('load', function() {
-    const workspace = document.getElementById("workspace")
+const workspace = document.getElementById("workspace")
 
-    readyPokedexes.forEach((element) => {
-        workspace.append(CreateGroupElement(element))
-    })  
+var groups = []
+
+readyPokedexes.forEach((element) => {
+    var group = CreateGroupElement(element)
+    groups.push(group)
+})
+
+window.addEventListener("load", () => {
+    groups.forEach((group) => {
+        workspace.append(group)
+    })
 })
