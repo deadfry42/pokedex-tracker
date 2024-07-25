@@ -292,15 +292,36 @@ const createBoxData = (includeUnownBox = false) => {
 
     if (includeUnownBox == true) { // automatically create the unown box
         var unownBoxPokemon = []
-        var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","exclamation","question"]
-        for (i = 0; i < 60; i++) {
-            if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
-            else unownBoxPokemon.push({id: 201, form: alphabet[i]})
+        if (generation >= 3) {
+            var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","exclamation","question"]
+            for (i = 0; i < 60; i++) {
+                if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
+                else unownBoxPokemon.push({id: 201, form: alphabet[i]})
+            }
+            boxData.push({
+                id: boxIndex+1,
+                pokemon: unownBoxPokemon
+            })
+        } else {
+            var unownBoxPokemon2 = []
+            var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+            for (i = 0; i < 20; i++) {
+                if (i > 27) unownBoxPokemon.push({id: -1, form: 0}) // filling the rest with blank spots
+                else unownBoxPokemon.push({id: 201, form: alphabet[i]})
+            }
+            for (i = 20; i < 40; i++) {
+                if (i > 27) unownBoxPokemon2.push({id: -1, form: 0}) // filling the rest with blank spots
+                else unownBoxPokemon2.push({id: 201, form: alphabet[i]})
+            }
+            boxData.push({
+                id: boxIndex+1,
+                pokemon: unownBoxPokemon
+            })
+            boxData.push({
+                id: boxIndex+2,
+                pokemon: unownBoxPokemon2
+            })
         }
-        boxData.push({
-            id: boxIndex+1,
-            pokemon: unownBoxPokemon
-        })
     }
 
     return boxData
