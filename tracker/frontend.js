@@ -531,15 +531,8 @@ appendSettingElement(createSettingElement(
 appendSettingElement(createSettingElement(
     "Unown Box", {
         type: "checkmark",
-        supportedGameStores: ["*", "-rby", "-gsc", "-lpge", "-swsh", "-sv"],
+        supportedGameStores: ["*", "-rby", "-lpge", "-swsh", "-sv"],
         settingName: "unown",
-    }
-))
-appendSettingElement(createSettingElement(
-    "Unown Box", {
-        type: "checkmark",
-        supportedGameStores: ["gsc"],
-        settingName: "unownsmol",
     }
 ))
 appendSettingElement(createSettingElement(
