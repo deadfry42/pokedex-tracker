@@ -89,12 +89,20 @@ const createPokemonElement = (pokemonId, form) => {
 
         pokemon.append(indicator)
 
-        if (getPokemonStatus(data, pokemonId, form, 1) == 1) indicator.style.display = "initial"
+        if (getPokemonStatus(data, pokemonId, form, 1) == 1) indicator.style.display = "block"
         else indicator.style.display = "none"
+    }
+
+    pokemon.oncontextmenu = (e) => {
+        e.preventDefault();
     }
 
     pokemon.onmousedown = (e) => {
         if (inframe) return;
+        if (e.button == 1 || e.button == 2) {
+            if (indicator.style.display == "none") {indicator.style.display = "block"; setPokemonStatus(data, pokemonId, form, true, 1)}
+            else {indicator.style.display = "none"; setPokemonStatus(data, pokemonId, form, false, 1)}
+        }
         if (e.button != 0) return;
         if (e.ctrlKey == true) {
             inframe = true;
@@ -158,16 +166,16 @@ const createPokemonElement = (pokemonId, form) => {
         if (primaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true)}
-                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
+                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
                 break;
 
                 case 1:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true)}
+                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
                 break;
 
                 case -1:
-                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false)}
+                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
                 break;
             }
         }
@@ -296,7 +304,6 @@ const createSettingElement = (name, settingInfo = null) => {
 
             dropdownElement.onchange = () => {
                 settingsWarning.style.display = "block"
-                console.log(dropdownElement.value)
                 settings[settingInfo.settingName] = dropdownElement.value
                 saveSettings(data, settings)
                 saveData(gamedatastore, data)
