@@ -360,7 +360,6 @@ const setPokemonStatus = (data = null, pkmnId = null, form = null, status = fals
     if (!pkmnId) return;
     if (!data) data = {}
     var pullTable = statusType == 0 ? "pokemon" : "marked"
-    console.log(pullTable)
     if (!data[pullTable]) data[pullTable] = []
     var includer = pkmnId;
     if (form != null && form != 0) includer = includer.toString()+form.toString()
