@@ -273,6 +273,7 @@ const createSettingElement = (name, settingInfo = null) => {
     // }
 
     if (!settingInfo) return;
+    if (!settings[settingInfo.settingName]) return;
 
     // check if setting is supported
     if (!settingInfo.supportedGameStores.includes("*") && !settingInfo.supportedGameStores.includes(gamedatastore)) return null;
@@ -530,8 +531,15 @@ appendSettingElement(createSettingElement(
 appendSettingElement(createSettingElement(
     "Unown Box", {
         type: "checkmark",
-        supportedGameStores: ["*", "-rby"],
+        supportedGameStores: ["*", "-rby", "-gsc", "-lpge", "-swsh", "-sv"],
         settingName: "unown",
+    }
+))
+appendSettingElement(createSettingElement(
+    "Unown Box", {
+        type: "checkmark",
+        supportedGameStores: ["gsc"],
+        settingName: "unownsmol",
     }
 ))
 appendSettingElement(createSettingElement(
