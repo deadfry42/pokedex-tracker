@@ -18,6 +18,7 @@ data = getData(gamedatastore);
 settings = getSettings(data)
 
 var primaryMouseButtonDown = false;
+var secondaryMouseButtonDown = false;
 var lastAction = 0;
 var inframe = false;
 
@@ -26,6 +27,8 @@ var iframeDiv;
 const setPrimaryButtonState = (e) => {
     var flags = e.buttons !== undefined ? e.buttons : e.which;
     primaryMouseButtonDown = (flags & 1) === 1;
+    secondaryMouseButtonDown = (flags & 2) === 2;
+
 }
 
 document.addEventListener("mousedown", setPrimaryButtonState);
@@ -98,10 +101,17 @@ const createPokemonElement = (pokemonId, form) => {
     }
 
     pokemon.onmousedown = (e) => {
+        if (pokemonId > maxPokemon || pokemonId < 0) return;
         if (inframe) return;
-        if (e.button == 1 || e.button == 2) {
-            if (indicator.style.display == "none") {indicator.style.display = "block"; setPokemonStatus(data, pokemonId, form, true, 1)}
-            else {indicator.style.display = "none"; setPokemonStatus(data, pokemonId, form, false, 1)}
+        if (e.button == 2 ) {
+            if (indicator.style.display == "none") {
+                indicator.style.display = "block"; setPokemonStatus(data, pokemonId, form, true, 1)
+                lastAction = 2;
+            }
+            else {
+                indicator.style.display = "none"; setPokemonStatus(data, pokemonId, form, false, 1)
+                lastAction = -2
+            }
         }
         if (e.button != 0) return;
         if (e.ctrlKey == true) {
@@ -146,7 +156,6 @@ const createPokemonElement = (pokemonId, form) => {
                 }
             })
         }
-        if (pokemonId > maxPokemon || pokemonId < 0) return;
         if (pokemon.classList.contains("pokemon-unclaimed")) {
             pokemon.classList = ["pokemon-claimed"];
             lastAction = 1;
@@ -163,7 +172,7 @@ const createPokemonElement = (pokemonId, form) => {
     pokemon.onmouseenter = () => {
         if (inframe) return;
         if (pokemonId > maxPokemon || pokemonId < 0) return;
-        if (primaryMouseButtonDown) {
+        if (primaryMouseButtonDown || secondaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
                     if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
@@ -176,6 +185,14 @@ const createPokemonElement = (pokemonId, form) => {
 
                 case -1:
                     if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
+                break;
+
+                case 2:
+                    if (indicator.style.display = "none") {indicator.style.display = "block"; setPokemonStatus(data, pokemonId, form, true, 1)}
+                break;
+
+                case -2:
+                    if (indicator.style.display = "block") {indicator.style.display = "none"; setPokemonStatus(data, pokemonId, form, false, 1)}
                 break;
             }
         }
@@ -528,8 +545,9 @@ appendSettingElement(createSettingElement(
         ]
     }
 ))
+var unownSettingName = generation >= 3 ? "Unown Box" : "Unown Boxes"
 appendSettingElement(createSettingElement(
-    "Unown Box", {
+    unownSettingName, {
         type: "checkmark",
         supportedGameStores: ["*", "-rby", "-lpge", "-swsh", "-sv"],
         settingName: "unown",
