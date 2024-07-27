@@ -472,15 +472,16 @@ progressText.innerText = "Loading..."
 
 const updateProgress = () => {
     var pokemonObtained = 0;
+    var pokemonMarked = 0;
     if (data) {
-        if (data.pokemon) {
-            pokemonObtained = data.pokemon.length != null ? data.pokemon.length : 0
-        }
+        if (data.pokemon) pokemonObtained = data.pokemon.length != null ? data.pokemon.length : 0
+        if (data.marked) pokemonMarked  = data.marked.length != null ? data.marked.length : 0
     }
     var percentage = Math.floor(pokemonObtained/maxPokemon*100)
     var completion = pokemonObtained >= maxPokemon ? "(COMPLETED) " : ""
     var catchLeft = pokemonObtained >= maxPokemon ? "" : `\n${maxPokemon-pokemonObtained} left to catch!`
-    progressText.innerText = `${completion}Pokedex completion: ${pokemonObtained}/${maxPokemon} (${percentage}%)${catchLeft}`
+    var markedCount = pokemonMarked > 0 ? `\n${pokemonMarked} pokemon marked!` : ""
+    progressText.innerText = `${completion}Pokedex completion: ${pokemonObtained}/${maxPokemon} (${percentage}%)${catchLeft}${markedCount}`
 }
 
 updateProgress()
