@@ -14,8 +14,8 @@ const localImages = true;
 // this changes the url path of the images used in the pokedex.
 // to "../assets/pokemon/" (which is stored locally instead of externally)
 // instead of "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-// i recommend cloning the folder from the link above and putting it into assets
-// for the best compatibility
+// i recommend cloning the folder from https://github.com/PokeAPI/sprites.git
+// and putting the master/sprites/pokemon folder into assets for the best compatibility
 // defaults to false
 
 var gamedatastore = urlParams.has("game") == true ? urlParams.get("game") : "pbrs"
