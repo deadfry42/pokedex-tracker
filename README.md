@@ -1,5 +1,5 @@
 # Pokedex tracker
-A simple and easy to use FOSS Pokedex tracker!
+A feature-rich, but still simple and easy to use pokedex tracker!
 
 > [!Note]  
 > The website is available [here](https://pokedex-tracker.netlify.app)!  
@@ -7,11 +7,11 @@ A simple and easy to use FOSS Pokedex tracker!
 > It should be updated when a new github release is made.
 
 ## What is this?
-This is a simple and easy to use Pokedex tracker for the pokemon games. Currently, It supports Generation 1 through 3. There are plans to support all generations in the future, but this project is relatively new and isn't quite yet complete.
+This is a very extensive but relatively simple to use Pokedex tracker for the pokemon games. Currently, It supports Generations 1 through 3. There are plans to support all generations in the future, but this project is relatively new and isn't quite yet complete.
 
 ## How does it work?
-Unlike the predecessor, this pokedex tracker saves all of its data in localstorage, which means the data never leaves your device (unless you explicitly share it). This is an upside, but also a downside, as it won't sync between devices and (on certain browsers like safari) may be cleared out after 1 week of inactivity. Both can be (sort of) solved by allowing the user to export and import data as they please.
+This pokedex tracker is quite simple. You can select the game you'd like to track, and then click on the pokemon mark it as "obtained" and click again to unmark it. You can also right-click to give it a mark, and right-click again to take its mark away. Furthermore, it is incredibly customisable with a lot of options.
 
 ## Credits
-*PokeAPI* -> Giving vital data (sprites, names etc.)  
-*Bulbapedia & Serebii & PokemonDB* -> Providing a good wiki for information
+*PokeAPI / Veekun* -> Giving vital data (sprites, names etc.)  
+*Bulbapedia, Serebii & PokemonDB* -> Providing a good wiki for information

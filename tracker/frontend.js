@@ -75,8 +75,8 @@ const createPokemonElement = (pokemonId, form) => {
     pokemon.style.backgroundRepeat = "no-repeat"
     pokemon.style.display = "inline-block"
 
-    pokemon.style.width = "48px"
-    pokemon.style.height = "48px"
+    pokemon.style.width = `${48*dexScale}px`
+    pokemon.style.height = `${48*dexScale}px`
     pokemon.style.margin = "0px"
     pokemon.style.padding = "0px"
     pokemon.style.marginRight = "0px"
@@ -90,8 +90,8 @@ const createPokemonElement = (pokemonId, form) => {
         else pokemon.classList = ["pokemon-unclaimed"]
 
         var indicator = document.createElement("div")
-        indicator.style.width = "10px"
-        indicator.style.height = "10px"
+        indicator.style.width = `${10*dexScale}px`
+        indicator.style.height = `${10*dexScale}px`
         indicator.style.borderRadius = "100%"
         indicator.style.backgroundColor = "rgba(255, 0, 0, 1)"
         indicator.style.classList = ["pokemon-claimed"]
@@ -214,7 +214,7 @@ const createBoxRow = () => {
 
     row.style.padding = "0px"
     row.style.margin = "0px"
-    row.style.height = "48px"
+    row.style.height = `${48*dexScale}px`
 
     return row
 }
@@ -249,8 +249,8 @@ const createBox = (name, id, pokemon) => {
     box.style.backgroundSize = "contain"
 
     box.style.margin = "auto"
-    box.style.width = `${rowSize*48+rowSize}px`
-    box.style.height = `${rowCount*48}px`
+    box.style.width = `${rowSize*(48+rowSize)*dexScale}px`
+    box.style.height = `${rowCount*48*dexScale}px`
 
     box.style.alignItems = "center"
     box.style.display = "grid"
@@ -265,15 +265,15 @@ const createBox = (name, id, pokemon) => {
         if (settings.numbered == "true") boxHeader.src = `../assets/boxes/${boxBgName}/head/numbered/${name}.png`
         else boxHeader.src = `../assets/boxes/${boxBgName}/head/standard/${name}.png`
     }
-    boxHeader.style.width = "200px"
-    boxHeader.style.margin = "3px"
+    boxHeader.style.width = `${200*dexScale}px`
+    boxHeader.style.margin = `${3*dexScale}px`
 
     boxContainer.append(boxHeader)
     boxContainer.append(box)
 
     boxContainer.style.display = "flexbox"
 
-    boxContainer.style.marginBottom = "5px"
+    boxContainer.style.marginBottom = `${5*dexScale}px`
     boxContainer.classList = ["center"]
 
     return boxContainer
