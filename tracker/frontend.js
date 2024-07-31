@@ -385,12 +385,17 @@ const createSettingElement = (name, settingInfo = null) => {
 
             var label = document.createElement("label")
             label.for = name
-            label.innerText = `${name} -> ${rangeElement.value} `
+            label.innerText = `${name} -> `
             label.style.marginRight = "10px"
+
+            var value = document.createElement("p")
+            value.innerText = `${rangeElement.value}`
+            value.style.margin = "0px"
+            value.style.padding = "0px"
 
             rangeElement.oninput = () => {
                 // while dragging
-                label.innerText = `${name} -> ${rangeElement.value} `
+                value.innerText = `${rangeElement.value}`
             }
 
             rangeElement.onchange = () => {
@@ -404,6 +409,7 @@ const createSettingElement = (name, settingInfo = null) => {
 
             newSettingElement.append(label)
             newSettingElement.append(rangeElement)
+            newSettingElement.append(value)
             newSettingElement.append(document.createElement("br"))
         break;
 
@@ -595,18 +601,7 @@ appendSettingElement(createSettingElement(
     }
 ))
 appendSettingElement(createSettingElement(
-    "Pokedex Scale", {
-        type: "range",
-        supportedGameStores: ["*"],
-        settingName: "scale",
-        min: 0.5,
-        max: 3,
-        step: 0.1,
-    }
-))
-var unownSettingName = generation >= 3 ? "Unown Box" : "Unown Boxes"
-appendSettingElement(createSettingElement(
-    unownSettingName, {
+    generation >= 3 ? "Unown Box" : "Unown Boxes", {
         type: "checkmark",
         supportedGameStores: ["*", "-rby", "-lpge", "-swsh", "-sv"],
         settingName: "unown",
@@ -640,6 +635,16 @@ appendSettingElement(createSettingElement(
             {val: false, label: "Create another tab"},
             {val: true, label: "Inside this website"},
         ]
+    }
+))
+appendSettingElement(createSettingElement(
+    "Pokedex Scale", {
+        type: "range",
+        supportedGameStores: ["*"],
+        settingName: "scale",
+        min: 0.5,
+        max: 3,
+        step: 0.1,
     }
 ))
 
