@@ -651,6 +651,9 @@ settingsPage.append(exportImportDiv)
 
 // help page init
 
+helpPage.style.width = "80vw"
+helpPage.style.margin = "auto"
+
 var helpTitle = document.createElement("h1")
 helpTitle.innerText = "help"
 var helpText = document.createElement("p")
