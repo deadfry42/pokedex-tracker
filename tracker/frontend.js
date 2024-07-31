@@ -8,6 +8,9 @@
 // this file works with everything visible to the user including:
 // creating the boxes, sending things to the api and displaying things from the api.
 
+// reading the code from your browser? the code is freely available here!
+// https://github.com/deadfry42/pokedex-tracker
+
 document.getElementById("gametitle").innerText = gametitle
 
 var data = getData(gamedatastore);

@@ -8,6 +8,9 @@
 // this file works with setting up basic variables for api & frontend, including:
 // the game, the generation, the pokemon and more
 
+// reading the code from your browser? the code is freely available here!
+// https://github.com/deadfry42/pokedex-tracker
+
 const urlParams = new URL(window.location.href).searchParams;
 
 const localImages = false;

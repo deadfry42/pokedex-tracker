@@ -8,6 +8,9 @@
 // this file works with all of the backend, the things that are invisible to the user, including:
 // getting pokemon images, getting data, changing data and more
 
+// reading the code from your browser? the code is freely available here!
+// https://github.com/deadfry42/pokedex-tracker
+
 const body = document.getElementById("body")
 
 const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder = "") => {

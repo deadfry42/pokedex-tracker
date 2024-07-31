@@ -1,3 +1,16 @@
+//           _           _      _
+//  ___  ___| | ___  ___| |_   (_)___
+// / __|/ _ \ |/ _ \/ __| __|  | / __|
+// \__ \  __/ |  __/ (__| |_ _ | \__ \
+// |___/\___|_|\___|\___|\__(_)/ |___/
+//                          |__/
+
+// this file works with selecting which pokedex you want to track, which includes:
+// defining the pokedexes, and creating a frontend to go to the tracker.
+
+// reading the code from your browser? the code is freely available here!
+// https://github.com/deadfry42/pokedex-tracker
+
 var pokedexes = [
     {
         label: "Generation 1",
