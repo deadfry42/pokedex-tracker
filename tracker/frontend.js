@@ -522,6 +522,7 @@ var spriteOptions = [
     {val: 7, label: "Gen 6/7 sprites"},
     {val: 8, label: "Gen 7 Menu icon sprites"},
     {val: 9, label: "Gen 8 Menu icon sprites"},
+    {val: 12, label: "Generic pixel art sprites"}, // i'm not remapping the values
     {val: 10, label: "Pokemon Home sprites (slow)"},
     {val: 11, label: "Official Artwork (slow)"},
 ]

@@ -25,7 +25,7 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder
 
     if (id > maxPokemon || id < 0) return "../assets/blankSpace.png"
 
-    if (version > 11) version = 11
+    if (version > 12) version = 12
     if (version < -5) version = -5
     var urlConstructor = localImages == true ? "../assets/pokemon/" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     var lastUrlConstructor = ""
@@ -101,6 +101,10 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder
 
             case 11:
                 currentUrlConstructor += "other/official-artwork/"
+            break;
+
+            case 12:
+                //nothing, the first directory has the generic pixel art
             break;
 
             default:
