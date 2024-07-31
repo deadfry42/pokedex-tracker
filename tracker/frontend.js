@@ -20,6 +20,9 @@ saveData(gamedatastore, data)
 data = getData(gamedatastore);
 settings = getSettings(data)
 
+console.log((window.innerWidth)/(rowSize*(48+rowSize)*dexScale)/(gamedatastore == "pbrs" ? 2 : 4))
+// recommended width
+
 dexScale = settings.scale != null ? settings.scale : 1
 
 var primaryMouseButtonDown = false;
