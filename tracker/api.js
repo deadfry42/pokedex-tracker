@@ -27,7 +27,7 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder
 
     if (version > 11) version = 11
     if (version < -5) version = -5
-    var urlConstructor = localImages ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" : "../assets/pokemon/"
+    var urlConstructor = localImages == true ? "../assets/pokemon/" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
     var lastUrlConstructor = ""
 
     const createUrlForVersion = (version) => {
