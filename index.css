@@ -16,6 +16,7 @@ button {
     margin: 10px;
     cursor: pointer;
     box-shadow: none;
+    border-radius: 5px;
 }
 
 button:hover {
