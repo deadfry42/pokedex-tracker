@@ -554,6 +554,16 @@ appendSettingElement(createSettingElement(
         ]
     }
 ))
+appendSettingElement(createSettingElement(
+    "Pokedex Scale", {
+        type: "range",
+        supportedGameStores: ["*"],
+        settingName: "scale",
+        min: 0.5,
+        max: 3,
+        step: 0.1,
+    }
+))
 var unownSettingName = generation >= 3 ? "Unown Box" : "Unown Boxes"
 appendSettingElement(createSettingElement(
     unownSettingName, {
