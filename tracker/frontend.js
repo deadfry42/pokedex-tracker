@@ -77,10 +77,17 @@ document.addEventListener("keyup", (e) => {
 
 const createPokemonElement = (pokemonId, form) => {
     var pokemon = document.createElement("div")
-    pokemon.style.backgroundImage = `url('${getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)}')`
-    pokemon.style.backgroundSize = "contain"
-    pokemon.style.backgroundRepeat = "no-repeat"
     pokemon.style.display = "inline-block"
+
+    var image = document.createElement("div")
+    image.style.backgroundImage = `url('${getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)}')`
+    image.style.backgroundSize = "contain"
+    image.style.backgroundRepeat = "no-repeat"
+    image.style.width = "100%"
+    image.style.height = "100%"
+    image.style.float = "right"
+
+    pokemon.append(image)
 
     pokemon.style.width = `${48*dexScale}px`
     pokemon.style.height = `${48*dexScale}px`
@@ -93,16 +100,18 @@ const createPokemonElement = (pokemonId, form) => {
     pokemon.ondragstart = function() { return false; };
 
     if (pokemonId <= maxPokemon && pokemonId > 0) {
-        if (getPokemonStatus(data, pokemonId, form, 0) == 1) pokemon.classList = ["pokemon-claimed"]
-        else pokemon.classList = ["pokemon-unclaimed"]
+        if (getPokemonStatus(data, pokemonId, form, 0) == 1) image.classList = ["pokemon-claimed"]
+        else image.classList = ["pokemon-unclaimed"]
 
         var indicator = document.createElement("div")
         indicator.style.width = `${10*dexScale}px`
         indicator.style.height = `${10*dexScale}px`
         indicator.style.borderRadius = "100%"
         indicator.style.backgroundColor = "rgba(255, 0, 0, 1)"
+        indicator.style.position = "initial"
         indicator.style.display = "none"
         indicator.classList = ["indicator"]
+        indicator.userSelect = "none"
 
         pokemon.append(indicator)
 
@@ -170,13 +179,13 @@ const createPokemonElement = (pokemonId, form) => {
                 }
             })
         }
-        if (pokemon.classList.contains("pokemon-unclaimed")) {
-            pokemon.classList = ["pokemon-claimed"];
+        if (image.classList.contains("pokemon-unclaimed")) {
+            image.classList = ["pokemon-claimed"];
             lastAction = 1;
             setPokemonStatus(data, pokemonId, form, true)
             saveData(gamedatastore, data)
         } else {
-            pokemon.classList = ["pokemon-unclaimed"];
+            image.classList = ["pokemon-unclaimed"];
             lastAction = -1;
             setPokemonStatus(data, pokemonId, form, false)
             saveData(gamedatastore, data)
@@ -189,16 +198,16 @@ const createPokemonElement = (pokemonId, form) => {
         if (primaryMouseButtonDown || secondaryMouseButtonDown) {
             switch (lastAction) {
                 case 0:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {lastAction = 1; pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
-                    else {lastAction = -1; pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
+                    if (image.classList.contains("pokemon-unclaimed")) {lastAction = 1; image.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
+                    else {lastAction = -1; image.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
                 break;
 
                 case 1:
-                    if (pokemon.classList.contains("pokemon-unclaimed")) {pokemon.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
+                    if (image.classList.contains("pokemon-unclaimed")) {image.classList = ["pokemon-claimed"]; setPokemonStatus(data, pokemonId, form, true, 0)}
                 break;
 
                 case -1:
-                    if (pokemon.classList.contains("pokemon-claimed")) {pokemon.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
+                    if (image.classList.contains("pokemon-claimed")) {image.classList = ["pokemon-unclaimed"]; setPokemonStatus(data, pokemonId, form, false, 0)}
                 break;
 
                 case 2:

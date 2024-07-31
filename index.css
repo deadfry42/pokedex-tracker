@@ -124,6 +124,18 @@ button:not(:hover) {
     transition: all 1s;
 }
 
+@keyframes indicator-placed { /* im the real slim shady */
+    0%      {transform: scale(1.15); opacity: 0.3;}
+    100%    {transform: scale(1); opacity: 1;}
+}
+
+.indicator {
+    animation-name: indicator-placed;
+    animation-duration: 0.15s;
+    /* animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1); */
+    animation-fill-mode: forwards;
+}
+
 @keyframes fadeOut {
     0%   {opacity: 1; transform: translateY(0px);}
     100% {opacity: 0; transform: translateY(15px);}
