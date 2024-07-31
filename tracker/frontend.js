@@ -66,6 +66,7 @@ const createPokemonElement = (pokemonId, form) => {
     var pokemon = document.createElement("div")
     pokemon.style.backgroundImage = `url('${getPokemonImageURL(pokemonId, settings.sprite, settings.shiny, form)}')`
     pokemon.style.backgroundSize = "contain"
+    pokemon.style.backgroundRepeat = "no-repeat"
     pokemon.style.display = "inline-block"
 
     pokemon.style.width = "48px"
