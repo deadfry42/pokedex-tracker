@@ -24,11 +24,16 @@
             <p>This website is entirely open source! Check out the source code <a href="https://github.com/deadfry42/pokedex-tracker" style="color: white;">here</a>!</p>
             <br>
             <form>
-                <button formaction="../index.html">
+                <button id="backbutton" formaction="../index.html">
                     back
                 </button>
             </form>
         </div>
+        <script>
+            window.addEventListener("keyup", (e) => {
+                if (e.key == "Escape") document.getElementById("backbutton").click()
+            })
+        </script>
     </body>
     <foot>
     </foot>
