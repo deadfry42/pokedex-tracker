@@ -557,7 +557,7 @@ appendSettingElement(createSettingElement(
 appendSettingElement(createSettingElement(
     "Shiny sprites", {
         type: "checkmark",
-        supportedGameStores: ["*"],
+        supportedGameStores: ["*", "-rby"],
         settingName: "shiny",
     }
 ))
