@@ -369,7 +369,7 @@ const getSettings = (data = null) => {
     //settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
     settings.iframe = data.settings.iframe != null ? data.settings.iframe : detectFirefox() == true ? "true" : "false"
     settings.source = data.settings.source != null ? parseInt(data.settings.source) : 1
-    settings.scale = data.settings.scale != null ? parseInt(data.settings.scale) : 1
+    settings.scale = data.settings.scale != null ? parseFloat(data.settings.scale) : 1
     return settings
 }
 

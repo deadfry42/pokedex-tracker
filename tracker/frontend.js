@@ -367,6 +367,44 @@ const createSettingElement = (name, settingInfo = null) => {
             newSettingElement.append(document.createElement("br"))
         break;
 
+        case "range":
+            newSettingElement = document.createElement("div")
+            newSettingElement.style.display = "inline"
+            newSettingElement.style.marginBottom = "3px"
+
+            var rangeElement = document.createElement("input")
+            rangeElement.name = name
+            rangeElement.type = "range"
+            rangeElement.min = settingInfo.min
+            rangeElement.max = settingInfo.max
+            rangeElement.step = settingInfo.step
+
+            rangeElement.value = parseFloat(settings[settingInfo.settingName])
+
+            var label = document.createElement("label")
+            label.for = name
+            label.innerText = `${name} -> ${rangeElement.value} `
+            label.style.marginRight = "10px"
+
+            rangeElement.oninput = () => {
+                // while dragging
+                label.innerText = `${name} -> ${rangeElement.value} `
+            }
+
+            rangeElement.onchange = () => {
+                // when finished dragging
+                settingsWarning.style.display = "block"
+                console.log(parseFloat(rangeElement.value))
+                settings[settingInfo.settingName] = parseFloat(rangeElement.value)
+                saveSettings(data, settings)
+                saveData(gamedatastore, data)
+            }
+
+            newSettingElement.append(label)
+            newSettingElement.append(rangeElement)
+            newSettingElement.append(document.createElement("br"))
+        break;
+
         default:
             console.log(`Setting element ${name} has an invalid type!!`)
         break;
