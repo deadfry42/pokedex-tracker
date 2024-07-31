@@ -10,7 +10,7 @@
 
 const urlParams = new URL(window.location.href).searchParams;
 
-const localImages = true;
+const localImages = false;
 // this changes the url path of the images used in the pokedex.
 // to "../assets/pokemon/" (which is stored locally instead of externally)
 // instead of "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
