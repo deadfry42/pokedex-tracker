@@ -96,8 +96,8 @@ const createPokemonElement = (pokemonId, form) => {
         indicator.style.height = `${10*dexScale}px`
         indicator.style.borderRadius = "100%"
         indicator.style.backgroundColor = "rgba(255, 0, 0, 1)"
-        indicator.style.classList = ["pokemon-claimed"]
         indicator.style.display = "none"
+        indicator.classList = ["indicator"]
 
         pokemon.append(indicator)
 
@@ -437,6 +437,7 @@ const newTab = (name) => {
     newTabElement.style.cursor = "pointer"
     newTabElement.style.marginLeft = "10px"
     newTabElement.style.marginRight = "10px"
+    newTabElement.id = name+"-tab"
 
     return newTabElement
 }
@@ -539,8 +540,45 @@ const updateProgress = () => {
 
 updateProgress()
 
+var actionsTitle = document.createElement("h1")
+actionsTitle.innerText = "quick actions"
+actionsTitle.style.marginTop = "40px"
+var actionsDiv = document.createElement("div")
+
+var clearMarked = document.createElement("button")
+clearMarked.innerText = "clear all marked pokemon"
+clearMarked.onclick = () => {
+    if (confirm("Are you sure you want to clear ALL of your *marked* pokemon? Are you sure you want to continue?") != true) return;
+    if (confirm("This action is irreversable!! Are you still sure you want to clear ALL of your *marked* pokemon?") != true) return;
+    if (!data) return;
+    if (!data.marked) return;
+    data.marked = []
+    updateProgress()
+    saveData(gamedatastore, data)
+    window.location.reload();
+}
+
+actionsDiv.append(clearMarked)
+
+var clearPokemon = document.createElement("button")
+clearPokemon.innerText = "clear all pokemon"
+clearPokemon.onclick = () => {
+    if (confirm("Are you sure you want to clear ALL of your pokemon? Are you sure you want to continue?") != true) return;
+    if (confirm("This action is irreversable!! Are you still sure you want to clear ALL of your pokemon?") != true) return;
+    if (!data) return;
+    if (!data.pokemon) return;
+    data.pokemon = []
+    updateProgress()
+    saveData(gamedatastore, data)
+    window.location.reload();
+}
+
+actionsDiv.append(clearPokemon)
+
 progressPage.append(progressTitle)
 progressPage.append(progressText)
+progressPage.append(actionsTitle)
+progressPage.append(actionsDiv)
 
 // settings page init
 
@@ -657,7 +695,7 @@ var eiexplain = document.createElement("p")
 var eistatus = document.createElement("p")
 var randombr = document.createElement("br")
 
-exportImportDiv.style.marginTop = "50px"
+exportImportDiv.style.marginTop = "25px"
 
 exportBtn.innerText = "export data"
 importBtn.innerText = "import data"
