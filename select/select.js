@@ -77,10 +77,13 @@ var readyPokedexes = [ // all of the pokedexes that are ready and should be show
     pokedexes[2],
 ]
 
+const allowRegionalSubtitles = false;
+// turn to true when regional subtitles are implemented.
+
 const CreatePokedexElement = (data) => {
     var pokedex = document.createElement("div")
     var title = document.createElement("h2")
-    title.innerText = data.label;
+    title.innerText = data.label+(allowRegionalSubtitles != true ? "" : data.dexType ? `\n(${data.dexType} Dex)` : "");
     title.style.margin = "1vw"
 
     var anchor = document.createElement("a")
