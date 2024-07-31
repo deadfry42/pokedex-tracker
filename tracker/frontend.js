@@ -24,6 +24,8 @@ var inframe = false;
 
 var iframeDiv;
 
+const iframeDivContainer = document.getElementById("yes")
+
 const setPrimaryButtonState = (e) => {
     var flags = e.buttons !== undefined ? e.buttons : e.which;
     primaryMouseButtonDown = (flags & 1) === 1;
@@ -47,6 +49,7 @@ const iescape = () => {
             iframeDiv.remove()
             primaryMouseButtonDown = false;
             console.log("--- End of Iframe ---")
+            iframeDivContainer.innerHTML = ""
         }, 1000);
     }
 }
@@ -150,7 +153,7 @@ const createPokemonElement = (pokemonId, form) => {
                     iframe.style.border = "none"
                     iframe.style.borderRadius = "1vw"
                     iframeDiv.append(iframe)
-                    document.getElementById("yes").append(iframeDiv)
+                    iframeDivContainer.append(iframeDiv)
                 } else {
                     window.open(url, url).focus();
                     inframe = false;
