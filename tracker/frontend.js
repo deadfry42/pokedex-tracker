@@ -389,13 +389,13 @@ const createSettingElement = (name, settingInfo = null) => {
             label.style.marginRight = "10px"
 
             var value = document.createElement("p")
-            value.innerText = `${rangeElement.value}`
+            value.innerText = `Value: ${rangeElement.value}`
             value.style.margin = "0px"
             value.style.padding = "0px"
 
             rangeElement.oninput = () => {
                 // while dragging
-                value.innerText = `${rangeElement.value}`
+                value.innerText = `Value: ${rangeElement.value}`
             }
 
             rangeElement.onchange = () => {
