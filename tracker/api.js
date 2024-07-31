@@ -10,7 +10,7 @@
 
 const body = document.getElementById("body")
 
-const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
+const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder = "") => {
     // version:
     // 0 - pkmn ruby
     // 1 - pkmn frlg
@@ -108,7 +108,9 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "") => {
             break;
         }
 
-        if (shiny == "true") currentUrlConstructor += "shiny/"
+        if (shiny == "true" && generation > 1) currentUrlConstructor += "shiny/"
+
+        currentUrlConstructor += subfolder;
     
         var formtext = form ? `-${form}` : ""
         currentUrlConstructor += `${id}${formtext}.png`
