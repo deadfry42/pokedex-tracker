@@ -20,6 +20,8 @@ saveData(gamedatastore, data)
 data = getData(gamedatastore);
 settings = getSettings(data)
 
+dexScale = settings.scale != null ? settings.scale : 1
+
 var primaryMouseButtonDown = false;
 var secondaryMouseButtonDown = false;
 var lastAction = 0;
