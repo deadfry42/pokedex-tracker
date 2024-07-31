@@ -303,8 +303,8 @@ const createSettingElement = (name, settingInfo = null) => {
     //     }
     // }
 
-    if (!settingInfo) return;
-    if (!settings[settingInfo.settingName]) return;
+    if (!settingInfo) return console.log("failed to get setting info");
+    if (settings[settingInfo.settingName] == null) return console.log("failed to get setting name");
 
     // check if setting is supported
     if (!settingInfo.supportedGameStores.includes("*") && !settingInfo.supportedGameStores.includes(gamedatastore)) return null;
