@@ -333,6 +333,15 @@ const createBoxData = (includeUnownBox = false) => {
     return boxData
 }
 
+const detectFirefox = () => { //for default iframe setting. may be expanded upon
+    var firefoxness = navigator.userAgent.search("Firefox") > 0
+    return firefoxness
+    // this is because firefox doesn't automatically switch to a tab
+    // when it is opened, whereas other browsers tend to.
+    // even epiphany focuses on a new tab
+    // even if epiphany doesn't work very well with this website
+}
+
 const getData = (type) => {
     var returnVal = null;
     try {
@@ -365,7 +374,8 @@ const getSettings = (data = null) => {
     settings.sprite = data.settings.sprite != null ? parseInt(data.settings.sprite) : defSprite
     settings.unown = data.settings.unown != null ? data.settings.unown : "false"
     settings.shiny = data.settings.shiny != null ? data.settings.shiny : "false"
-    settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
+    //settings.iframe = data.settings.iframe != null ? data.settings.iframe : "true"
+    settings.iframe = data.settings.iframe != null ? data.settings.iframe : detectFirefox() == true ? "true" : "false"
     settings.source = data.settings.source != null ? parseInt(data.settings.source) : 1
     return settings
 }
