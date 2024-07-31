@@ -141,3 +141,7 @@ window.addEventListener("load", () => {
         workspace.append(group)
     })
 })
+
+window.addEventListener("keyup", (e) => {
+    if (e.key == "Escape") document.getElementById("backbutton").click() //sometimes won't work
+})
