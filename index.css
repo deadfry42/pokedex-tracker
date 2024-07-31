@@ -3,9 +3,32 @@ body {
     margin: 2vh;
 }
 
-p, h1, h2, label, legend {
+p, h1, h2, label, legend, button {
     color: white;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+button {
+    background-color: transparent;
+    border-width: 3px;
+    border-color: white;
+    padding: 7px 10px;
+    outline: none;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+button:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+button:not(:hover) {
+    transform: scale(1);
+    transition: all 0.3s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .center {
