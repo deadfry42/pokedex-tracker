@@ -11,8 +11,6 @@
 // reading the code from your browser? the code is freely available here!
 // https://github.com/deadfry42/pokedex-tracker
 
-document.getElementById("gametitle").innerText = gametitle
-
 var data = getData(gamedatastore);
 var settings = getSettings(data)
 saveSettings(data, settings)
@@ -436,7 +434,7 @@ const createSettingElement = (name, settingInfo = null) => {
 }
 
 const trackerPage = document.createElement("div")
-trackerPage.style.display = "block"
+trackerPage.style.display = "none"
 const progressPage = document.createElement("div")
 progressPage.style.display = "none"
 const settingsPage = document.createElement("div")
@@ -779,8 +777,16 @@ settingsPage.id = "settings"
 helpPage.id = "help"
 
 const workspace = document.getElementById("workspace")
-workspace.append(createTabs())
+const tabs = createTabs()
+tabs.style.display = "none"
+workspace.append(tabs)
 workspace.append(trackerPage)
 workspace.append(progressPage)
 workspace.append(settingsPage)
 workspace.append(helpPage)
+
+window.addEventListener("load", () => {
+    tabs.style.display = "block"
+    trackerPage.style.display = "block"
+    document.getElementById("gametitle").innerText = gametitle
+})
