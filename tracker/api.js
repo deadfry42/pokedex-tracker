@@ -351,19 +351,6 @@ const getData = (type) => {
         console.log(e)
     }
     return returnVal
-    // {
-    //     pbrs: { // (pbrs is a type)
-    //         settings: {}
-    //         pokemon : {
-    //             1: 1,
-    //             24: 0,
-    //             55: 1,
-    //             254: 0,
-    //             386: 1,
-    //             ...
-    //         }
-    //     }   
-    // }
 } 
 
 const getSettings = (data = null) => {
