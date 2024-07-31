@@ -127,6 +127,8 @@ const getPokemonImageURL = (id, version = 0, shiny = false, form = "", subfolder
     return lastUrlConstructor
 }
 
+// this is unused as of right now,
+// may be used later
 const getAllowedGamesFromGeneration = (gen, allowOverlap, gentype=1) => {
     var gen1 = ["red", "blue", "yellow"]
     var gen2 = ["gold", "silver", "crystal"]
