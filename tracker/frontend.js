@@ -20,10 +20,12 @@ saveData(gamedatastore, data)
 data = getData(gamedatastore);
 settings = getSettings(data)
 
-console.log((window.innerWidth)/(rowSize*(48+rowSize)*dexScale)/(gamedatastore == "pbrs" ? 2 : 4))
-// recommended width
 
 dexScale = settings.scale != null ? settings.scale : 1
+if (dexScale == 0.4) {
+    dexScale = (window.innerWidth/(rowSize*(48+rowSize))/(gamedatastore == "pbrs" ? 2 : 4))
+    console.log("Automatic scale: "+dexScale)
+}
 
 var primaryMouseButtonDown = false;
 var secondaryMouseButtonDown = false;
@@ -392,13 +394,13 @@ const createSettingElement = (name, settingInfo = null) => {
             label.style.marginRight = "10px"
 
             var value = document.createElement("p")
-            value.innerText = `Value: ${rangeElement.value}`
+            value.innerText = `Value: ${(settingInfo.overrides[rangeElement.value] ? settingInfo.overrides[rangeElement.value] : rangeElement.value)}`
             value.style.margin = "0px"
             value.style.padding = "0px"
 
             rangeElement.oninput = () => {
                 // while dragging
-                value.innerText = `Value: ${rangeElement.value}`
+                value.innerText = `Value: ${(settingInfo.overrides[rangeElement.value] ? settingInfo.overrides[rangeElement.value] : rangeElement.value)}`
             }
 
             rangeElement.onchange = () => {
@@ -683,9 +685,12 @@ appendSettingElement(createSettingElement(
         type: "range",
         supportedGameStores: ["*"],
         settingName: "scale",
-        min: 0.5,
+        min: 0.4,
         max: 3,
         step: 0.1,
+        overrides: {
+            0.4: "Auto"
+        }
     }
 ))
 
