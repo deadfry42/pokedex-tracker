@@ -30,8 +30,8 @@ var pokedexes = [
         label: "Generation 3",
         national: "gen3",
         types: [
-            {label: "Pokemon Ruby/Sapphire/Emerald\n(Hoenn Dex)", store: "rse"},
-            {label: "Pokemon FireRed/LeafGreen\n(Kanto Dex)", store: "frlg"},
+            {label: "Pokemon Ruby/Sapphire/Emerald", dexType: "Hoenn", store: "rse"},
+            {label: "Pokemon FireRed/LeafGreen", dexType: "Kanto", store: "frlg"},
             {label: "Pokemon Box: Ruby & Sapphire", store: "pbrs"},
         ]
     },
@@ -39,32 +39,32 @@ var pokedexes = [
         label: "Generation 4",
         national: "gen4",
         types: [
-            {label: "Pokemon Diamond/Pearl/Platinum\n(Sinnoh Dex)", store: "dppt"},
-            {label: "Pokemon HeartGold/SoulSilver\n(Johto Dex)", store: "hgss"},
+            {label: "Pokemon Diamond/Pearl/Platinum", dexType: "Sinnoh", store: "dppt"},
+            {label: "Pokemon HeartGold/SoulSilver", dexType: "Johto", store: "hgss"},
         ]
     },
     {
         label: "Generation 5",
         national: "gen5",
         types: [
-            {label: "Pokemon Black/White\n(Unova Dex)", store: "bw"},
-            {label: "Pokemon Black2/White2\n(Unova Dex)", store: "b2w2"},
+            {label: "Pokemon Black/White", dexType: "Unova", store: "bw"},
+            {label: "Pokemon Black2/White2", dexType: "Hoenn", store: "b2w2"},
         ]
     },
     {
         label: "Generation 6",
         national: "gen6",
         types: [
-            {label: "Pokemon X/Y\n(Kalos Dex)", store: "xy"}, //we'll come to kalos later
-            {label: "Pokemon Omega Ruby/Alpha Sapphire\n(Hoenn Dex)", store: "oras"},
+            {label: "Pokemon X/Y", dexType: "Kalos", store: "xy"}, //we'll come to kalos later
+            {label: "Pokemon Omega Ruby/Alpha Sapphire", dexType: "Hoenn", store: "oras"},
         ]
     },
     {
         label: "Generation 7",
         national: null,
         types: [
-            {label: "Pokemon Sun/Moon\n(Alola Dex)", store: "sm"},
-            {label: "Pokemon Ultra Sun/Ultra Moon\n(Alola Dex)", store: "usum"},
+            {label: "Pokemon Sun/Moon", dexType: "Alola", store: "sm"},
+            {label: "Pokemon Ultra Sun/Ultra Moon", dexType: "Alola", store: "usum"},
             {label: "Pokemon Bank", store: "pokebank"},
         ]
     },
